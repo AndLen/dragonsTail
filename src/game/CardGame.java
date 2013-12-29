@@ -5,8 +5,6 @@ import gui.CardPanel;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static game.CardMoveResult.*;
-
 /**
  * Created by Andrew on 28/12/13.
  */
@@ -35,7 +33,9 @@ public class CardGame {
         for (int i = 0; i < 8; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < 8; j++) {
-                    board.get(j).add(cardList.remove(0));
+                    Card toAdd = cardList.remove(0);
+                    System.out.print(toAdd + " ");
+                    board.get(j).add(toAdd);
                     panel.repaint();
                     try {
                         Thread.sleep(100);
@@ -45,7 +45,9 @@ public class CardGame {
                 }
             } else {
                 for (int j = 7; j >= 0; j--) {
-                    board.get(j).add(cardList.remove(0));
+                    Card toAdd = cardList.remove(0);
+                    System.out.print(toAdd + " ");
+                    board.get(j).add(toAdd);
                     panel.repaint();
                     try {
                         Thread.sleep(100);
@@ -53,7 +55,7 @@ public class CardGame {
                         e.printStackTrace();
                     }
                 }
-            }
+            };
 
         }
         hand.addAll(cardList);
@@ -71,20 +73,24 @@ public class CardGame {
         return Collections.unmodifiableList(board);
     }
 
-    public CardMoveResult moveCardOntoCard(Card moving, Card destination, int destRow, int moveRow) {
-        if (moving.getRank().ordinal() == destination.getRank().ordinal() + 1) {
-            if (moving.getSuit() != destination.getSuit()) {
+    public String moveCardOntoCard(int toMoveTop, int boardIndexFrom, int boardIndexTo) {
+        List<Card> from = board.get(boardIndexFrom);
+        List<Card> to = board.get(boardIndexTo);
+        Card firstMoved = from.get(toMoveTop);
+        Card lastInRow = to.get(to.size() - 1);
+        if (firstMoved.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
+            if (firstMoved.getSuit() != lastInRow.getSuit()) {
                 //Valid move
-                board.get(destRow).add(moving);
-                board.get(moveRow).remove(board.get(moveRow).size() - 1);
-                return FINE;
+                while (toMoveTop < from.size()) {
+                    to.add(from.remove(toMoveTop));
+                }
+                return "";
 
             } else {
-                return WRONG_SUIT;
+                return "You can  only move onto a card of the same suit or different colour.";
             }
         } else {
-            return WRONG_NUM;
+            return firstMoved.getRank().name() + " is not one higher than " + lastInRow.getRank().name();
         }
-
     }
 }

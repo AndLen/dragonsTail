@@ -2,6 +2,7 @@ package gui;
 
 import game.Card;
 import game.CardGame;
+import game.CardMove;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
     private final CardGame game;
-    private Card activeCard = null;
+    //Moving cards
+    private CardMove activeMove = null;
     private int activeX = -1;
     private int activeY = -1;
 
@@ -51,8 +53,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             y = CARD_Y_NO_OVERLAP;
             x += CARD_WIDTH + CARD_X_GAP;
         }
-        if (activeCard != null && activeX != -1 && activeY != -1) {
-            renderCard(activeCard, g, activeX, activeY);
+        if (activeMove != null && activeX != -1 && activeY != -1) {
+            renderCard(gameBoard.get(activeMove.getBoardIndexFrom()).get(activeMove.getToMoveTop()), g, activeX, activeY);
         }
     }
 
@@ -104,35 +106,66 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     @Override
     public void mousePressed(MouseEvent e) {
 
-        int col = (int) ((e.getX() - CARD_X_GAP) / (CARD_WIDTH + CARD_X_GAP));
-        System.out.println("Col: " + col);
+        int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
-
-        //y-coord of the end of the last card in the pile
-        int endY = (int) (CARD_HEIGHT + (possibleCards.size() * CARD_Y_NO_OVERLAP));
-        if (e.getY() > endY || e.getY() < CARD_Y_NO_OVERLAP) {
-            //i.e. not clicked on a card
+        int index = findCardIndex(possibleCards, e.getY());
+        if (index == -1) {
+            //Indicates none found.
             return;
         }
 
-        int index = (int) ((e.getY() - CARD_Y_NO_OVERLAP) / (CARD_Y_NO_OVERLAP));
+        if (possibleCards.get(index) != null) {
+            activeMove = new CardMove(index, col);
+        }
+
+        System.out.println(activeMove);
+        activeX = e.getX();
+        activeY = e.getY();
+        this.repaint();
+    }
+
+    private int findCol(int xPressed) {
+        int col = (int) ((xPressed - CARD_X_GAP) / (CARD_WIDTH + CARD_X_GAP));
+        System.out.println("Col: " + col);
+        return col;
+    }
+
+    private int findCardIndex(List<Card> cards, int yPressed) {
+        //y-coord of the end of the last card in the pile
+
+        int endY = (int) (CARD_HEIGHT + (cards.size() * CARD_Y_NO_OVERLAP));
+        if (yPressed > endY || yPressed < CARD_Y_NO_OVERLAP) {
+            //i.e. not clicked on a card
+            return -1;
+        }
+
+        int index = (int) ((yPressed - CARD_Y_NO_OVERLAP) / (CARD_Y_NO_OVERLAP));
+
+        if (index >= cards.size()) {
+            index = cards.size() - 1;
+        }
 
         System.out.println("Index: " + index);
-
-        if (index >= possibleCards.size()) {
-            index = possibleCards.size() - 1;
-        }
-        if (possibleCards.get(index) != null) {
-            activeCard = possibleCards.get(index);
-        }
-
-        System.out.println(activeCard);
-        this.repaint();
+        return index;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        activeCard = null;
+        int col = findCol(e.getX());
+        List<Card> possibleCards = game.getBoard().get(col);
+        int index = findCardIndex(possibleCards, e.getY());
+        if (index != -1) {
+
+            if (possibleCards.get(index) != null) {
+                activeMove.cardReleased(col);
+                System.out.println("Moving:" + activeMove);
+                String result = activeMove.makeMove(game);
+                if (!result.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, result);
+                }
+            }
+        }
+        activeMove = null;
         this.repaint();
     }
 
@@ -148,7 +181,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (activeCard != null) {
+        if (activeMove != null) {
             activeX = e.getX();
             activeY = e.getY();
         } else {
