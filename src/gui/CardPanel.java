@@ -14,13 +14,12 @@ import java.util.List;
  */
 public class CardPanel extends JPanel implements ComponentListener, MouseListener, MouseMotionListener {
     private static final Color BACKGROUND_GREEN = new Color(0, 150, 0);
-    protected static double CARD_WIDTH;
-    protected static double CARD_HEIGHT;
     private static final double CARD_IMAGE_WIDTH = 224.25;
     private static final double CARD_IMAGE_HEIGHT = 312.8125;
+    protected static double CARD_WIDTH;
+    protected static double CARD_HEIGHT;
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
-
     private final CardGame game;
     private Card activeCard = null;
     private int activeX = -1;
@@ -62,8 +61,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         AffineTransform oldTransform = g.getTransform();
 
         double xScale = CARD_WIDTH / CARD_IMAGE_WIDTH;
-        double yScale = CARD_HEIGHT /CARD_IMAGE_HEIGHT;
-        g.translate(x,y);
+        double yScale = CARD_HEIGHT / CARD_IMAGE_HEIGHT;
+        g.translate(x, y);
         g.scale(xScale, yScale);
 
         g.setColor(Color.black);
@@ -76,10 +75,10 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     public void componentResized(ComponentEvent e) {
 
         CARD_X_GAP = getWidth() / 64;
-        CARD_WIDTH = (getWidth()-CARD_X_GAP) / 9;
+        CARD_WIDTH = (getWidth() - CARD_X_GAP) / 9;
 
-        CARD_HEIGHT = CARD_WIDTH/(CARD_IMAGE_WIDTH/CARD_IMAGE_HEIGHT);
-        CARD_Y_NO_OVERLAP = CARD_HEIGHT/4;
+        CARD_HEIGHT = CARD_WIDTH / (CARD_IMAGE_WIDTH / CARD_IMAGE_HEIGHT);
+        CARD_Y_NO_OVERLAP = CARD_HEIGHT / 4;
     }
 
     @Override
@@ -104,22 +103,30 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int col = (int) (e.getX() / (CARD_WIDTH + CARD_X_GAP));
-        List<Card> possibleCards = game.getBoard().get(0);
-        int maxIndex = (int) (e.getY() - (CARD_HEIGHT - CARD_Y_NO_OVERLAP) / CARD_Y_NO_OVERLAP);
-        int minIndex = (int) (e.getY() / CARD_Y_NO_OVERLAP);
-        Card clickedCard = null;
-        for (int i = maxIndex; i >= minIndex; i--) {
-            if (possibleCards.size() > i && possibleCards.get(i) != null) {
-                clickedCard = possibleCards.get(i);
-                break;
-            }
+
+        int col = (int) ((e.getX() - CARD_X_GAP) / (CARD_WIDTH + CARD_X_GAP));
+        System.out.println("Col: " + col);
+        List<Card> possibleCards = game.getBoard().get(col);
+
+        //y-coord of the end of the last card in the pile
+        int endY = (int) (CARD_HEIGHT + (possibleCards.size() * CARD_Y_NO_OVERLAP));
+        if (e.getY() > endY || e.getY() < CARD_Y_NO_OVERLAP) {
+            //i.e. not clicked on a card
+            return;
         }
-        if (clickedCard != null) {
-            activeCard = clickedCard;
+
+        int index = (int) ((e.getY() - CARD_Y_NO_OVERLAP) / (CARD_Y_NO_OVERLAP));
+
+        System.out.println("Index: " + index);
+
+        if (index >= possibleCards.size()) {
+            index = possibleCards.size() - 1;
         }
-        System.out.println(clickedCard);
-        activeCard = possibleCards.get(0);
+        if (possibleCards.get(index) != null) {
+            activeCard = possibleCards.get(index);
+        }
+
+        System.out.println(activeCard);
         this.repaint();
     }
 
