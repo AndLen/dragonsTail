@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class CardPanel extends JPanel implements ComponentListener, MouseListener, MouseMotionListener {
     private static final Color BACKGROUND_GREEN = new Color(0, 150, 0);
-    protected static double CARD_WIDTH = 50;
-    protected static double CARD_HEIGHT = 100;
+    protected static double CARD_WIDTH;
+    protected static double CARD_HEIGHT;
     private static final double CARD_IMAGE_WIDTH = 224.25;
     private static final double CARD_IMAGE_HEIGHT = 312.8125;
-    private static double CARD_X_GAP = 10;
-    private static double CARD_Y_NO_OVERLAP = 10;
+    private static double CARD_X_GAP;
+    private static double CARD_Y_NO_OVERLAP;
 
     private final CardGame game;
     private Card activeCard = null;
@@ -32,6 +32,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.addComponentListener(this);
+        //Set up initial constants
+        componentResized(null);
     }
 
     public void paint(Graphics gOriginal) {
@@ -45,12 +47,10 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         for (List<Card> cards : gameBoard) {
             for (Card card : cards) {
                 renderCard(card, g, x, y);
-
-
-                x += CARD_WIDTH + CARD_X_GAP;
+                y += CARD_Y_NO_OVERLAP;
             }
-            x = CARD_X_GAP;
-            y += CARD_Y_NO_OVERLAP;
+            y = CARD_Y_NO_OVERLAP;
+            x += CARD_WIDTH + CARD_X_GAP;
         }
         if (activeCard != null && activeX != -1 && activeY != -1) {
             renderCard(activeCard, g, activeX, activeY);
@@ -67,8 +67,6 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         g.scale(xScale, yScale);
 
         g.setColor(Color.black);
-        //Border around card.
-       // g.drawRoundRect(0,0,(int)CARD_WIDTH,(int)CARD_HEIGHT,10,10);
         ImageManager.renderSVG(card, g);
         //Revert changes.
         g.setTransform(oldTransform);
@@ -76,11 +74,12 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void componentResized(ComponentEvent e) {
-        CARD_Y_NO_OVERLAP = getHeight()/25;
 
-        CARD_WIDTH = (getWidth()-CARD_Y_NO_OVERLAP) / 9;
         CARD_X_GAP = getWidth() / 64;
+        CARD_WIDTH = (getWidth()-CARD_X_GAP) / 9;
+
         CARD_HEIGHT = CARD_WIDTH/(CARD_IMAGE_WIDTH/CARD_IMAGE_HEIGHT);
+        CARD_Y_NO_OVERLAP = CARD_HEIGHT/4;
     }
 
     @Override
