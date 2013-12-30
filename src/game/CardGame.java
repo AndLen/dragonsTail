@@ -1,5 +1,6 @@
 package game;
 
+import gui.CardFrame;
 import gui.CardPanel;
 
 import java.util.*;
@@ -14,8 +15,10 @@ public class CardGame {
     private final List<List<Card>> board;
     private final Queue<Card> deck;
     private final List<List<Card>> topRow;
+    private final CardFrame cardFrame;
 
-    public CardGame() {
+    public CardGame(CardFrame cardFrame) {
+        this.cardFrame = cardFrame;
         board = new CopyOnWriteArrayList<List<Card>>();
         deck = new LinkedList<Card>();
         topRow = new CopyOnWriteArrayList<List<Card>>();
@@ -116,7 +119,7 @@ public class CardGame {
     private String moveCardOntoCard(List<Card> from, int boardIndexTo, int listIndexFrom) {
         List<Card> to = board.get(boardIndexTo);
         Card toMove = from.get(listIndexFrom);
-        if(to.isEmpty()){
+        if (to.isEmpty()) {
             //Means we can move anything there.
             for (int i = listIndexFrom; i < from.size(); i++) {
                 to.add(from.get(i));
@@ -243,5 +246,16 @@ public class CardGame {
         return deck;
     }
 
+    public boolean hasWon() {
+        for (List<Card> pile : topRow) {
+            if (pile.size() != 13) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public void restart() {
+        cardFrame.restartGame();
+    }
 }

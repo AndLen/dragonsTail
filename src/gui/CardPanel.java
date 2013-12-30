@@ -33,9 +33,9 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private int activeX = -1;
     private int activeY = -1;
 
-    protected CardPanel(CardGame game) {
+    public CardPanel(CardGame game) {
         this.game = game;
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(1000, 1000));
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.addComponentListener(this);
@@ -166,7 +166,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         CARD_X_GAP = getWidth() / 64;
         CARD_WIDTH = (getWidth() - CARD_X_GAP) / 9;
-        CARD_WIDTH = Math.min(CARD_WIDTH, 100);
+        CARD_WIDTH = Math.min(CARD_WIDTH, 125);
 
         X_BOARD_OFFSET = (getWidth() - (CARD_WIDTH * 8) - (CARD_X_GAP * 7)) / 2;
 
@@ -197,7 +197,18 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
+            //Clicked off the board, nothing to do with us.
+            return;
+        }
+        System.out.println(System.currentTimeMillis() - LAST_PRESS);
+        if ((System.currentTimeMillis() - LAST_PRESS) < 200) {
+            NUMBER_CLICKS++;
+        } else {
+            NUMBER_CLICKS = 0;
+        }
         LAST_PRESS = System.currentTimeMillis();
+
         if (e.getY() < Y_BOARD_OFFSET) {
             processMoveFromTopRow(e);
         } else if (clickedOnDeck(e)) {
@@ -211,6 +222,37 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         activeX = e.getX();
         activeY = e.getY();
         this.repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
+            //Clicked off the board, nothing to do with us.
+            activeMove = null;
+            return;
+        }
+
+        if (NUMBER_CLICKS == 1) {
+            doubleClick(e);
+            NUMBER_CLICKS = 0;
+        } else if (e.getY() < Y_BOARD_OFFSET) {
+            processMoveToTopRow(e);
+        } else {
+            processMoveToBoard(e);
+        }
+
+        activeMove = null;
+        this.repaint();
+        if (game.hasWon()) {
+            String[] options = new String[]{"Play Again", "Quit"};
+            int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.", "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (result == JOptionPane.YES_OPTION) {
+                game.restart();
+
+            } else {
+                System.exit(0);
+            }
+        }
     }
 
     private void processMoveFromBoard(MouseEvent e) {
@@ -240,7 +282,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     }
 
     private void processMoveFromTopRow(MouseEvent e) {
-
+        int col = findCol(e.getX());
+        activeMove = new CardMove(col);
     }
 
     private int findCol(int xPressed) {
@@ -277,59 +320,45 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         return (findCol(e.getX()) == 0 && e.getY() > (getHeight() - CARD_Y_NO_OVERLAP * 2 - CARD_HEIGHT));
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
-            //Clicked off the board, nothing to do with us.
-            return;
-        }
-        System.out.println(System.currentTimeMillis() - LAST_PRESS);
-        if ((System.currentTimeMillis() - LAST_PRESS) < 125) {
-            NUMBER_CLICKS++;
-        } else {
-            NUMBER_CLICKS = 0;
-        }
-        if (NUMBER_CLICKS == 2) {
-            doubleClick(e);
-            NUMBER_CLICKS = 0;
-        } else if (e.getY() < Y_BOARD_OFFSET) {
-            processMoveToTopRow(e);
-        } else {
-            processMoveToBoard(e);
-        }
-
-        activeMove = null;
-        this.repaint();
-    }
-
-    //TODO: Empty columns
     private void doubleClick(MouseEvent e) {
         System.out.println("DOUBLE CLICK");
-        if (e.getY() > Y_BOARD_OFFSET) {
+        if (clickedOnDeck(e)) {
+            Card toSendUp = game.getDeck().peek();
+            if (didSendToTop(toSendUp)) {
+                game.getDeck().poll();
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot send that to the top");
+            }
+        } else if (e.getY() > Y_BOARD_OFFSET) {
             int col = findCol(e.getX());
             List<Card> cardList = game.getBoard().get(col);
             Card toSendUp = cardList.get(cardList.size() - 1);
-            List<List<Card>> topRow = game.getTopRow();
+            if (didSendToTop(toSendUp)) {
+                cardList.remove(cardList.size() - 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot send that to the top");
+            }
+        }
+    }
 
-            System.out.println(toSendUp);
-            //Find where it fits and send it there
-            for (List<Card> pile : topRow) {
-                if (toSendUp.getRank() == Card.Rank.ACE) {
-                    //find empty
-                    if (pile.isEmpty()) {
-                        pile.add(cardList.remove(cardList.size() - 1));
-                        return;
-                    }
-                } else if (!pile.isEmpty()) {
-                    Card topOfPile = pile.get(pile.size() - 1);
-                    if (toSendUp.matchesAndOneAbove(topOfPile)) {
-                        pile.add(cardList.remove(cardList.size() - 1));
-                        return;
-                    }
+    private boolean didSendToTop(Card toSendUp) {
+        List<List<Card>> topRow = game.getTopRow();
+        for (List<Card> pile : topRow) {
+            if (toSendUp.getRank() == Card.Rank.ACE) {
+                //find empty
+                if (pile.isEmpty()) {
+                    pile.add(toSendUp);
+                    return true;
+                }
+            } else if (!pile.isEmpty()) {
+                Card topOfPile = pile.get(pile.size() - 1);
+                if (toSendUp.matchesAndOneAbove(topOfPile)) {
+                    pile.add(toSendUp);
+                    return true;
                 }
             }
-            JOptionPane.showMessageDialog(this, "Cannot send that to the top");
         }
+        return false;
     }
 
     private void processMoveToBoard(MouseEvent e) {
