@@ -8,19 +8,26 @@ public class CardMove {
     private final int boardIndexFrom;
     private final int toMoveTop;
     private int boardIndexTo = -1;
+    private boolean topRow;
 
     public CardMove(int toMoveTop, int boardIndexFrom) {
         this.toMoveTop = toMoveTop;
         this.boardIndexFrom = boardIndexFrom;
     }
 
-    public void cardReleased(int boardIndexTo) {
+    public void cardReleased(int boardIndexTo, boolean topRow) {
         this.boardIndexTo = boardIndexTo;
+        this.topRow = topRow;
     }
 
     public String makeMove(CardGame game) {
         if (boardIndexTo != -1) {
-            return game.moveCardOntoCard(toMoveTop, boardIndexFrom, boardIndexTo);
+            if (topRow) {
+                return game.moveCardOntoTopRow(toMoveTop,boardIndexFrom,boardIndexTo);
+
+            } else {
+                return game.moveCardOntoCard(toMoveTop, boardIndexFrom, boardIndexTo);
+            }
         }
         return "";
     }

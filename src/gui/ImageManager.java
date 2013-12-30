@@ -32,8 +32,15 @@ public class ImageManager {
     }
 
     public static void renderSVG(Card card, Graphics2D g) {
+
         try {
-            SVGDiagram diagram = universe.getDiagram(ImageManager.class.getResource(urlBase + card.getSuit().name().toLowerCase() + "/" + card.getRank().ordinal() + ".svg").toURI());
+            SVGDiagram diagram;
+            if (card == null) {
+                diagram = universe.getDiagram(ImageManager.class.getResource(urlBase + "blank.svg").toURI());
+
+            } else {
+                diagram = universe.getDiagram(ImageManager.class.getResource(urlBase + card.getSuit().name().toLowerCase() + "/" + card.getRank().ordinal() + ".svg").toURI());
+            }
             diagram.setIgnoringClipHeuristic(true);
             diagram.render(g);
 

@@ -21,6 +21,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     protected static double CARD_HEIGHT;
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
+    private static double Y_BOARD_OFFSET;
     private final CardGame game;
     //Moving cards
     private CardMove activeMove = null;
@@ -41,21 +42,59 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         Graphics2D g = (Graphics2D) gOriginal;
         g.setColor(BACKGROUND_GREEN);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.setColor(Color.black);
+
+        renderTopRow(g);
         final List<List<Card>> gameBoard = game.getBoard();
+        renderBoard(g, gameBoard);
+        //Render cards being dragged if we can
+        renderDragCards(g, gameBoard);
+        renderDeck(g);
+    }
+
+    private void renderDeck(Graphics2D g) {
+        List<Card> deck = game.getDeck();
+    }
+
+    private void renderDragCards(Graphics2D g, List<List<Card>> gameBoard) {
+        if (activeMove != null && activeX != -1 && activeY != -1) {
+            List<Card> beingDragged = gameBoard.get(activeMove.getBoardIndexFrom());
+            double currY = activeY;
+            for (int i = activeMove.getToMoveTop(); i < beingDragged.size(); i++) {
+
+                //Render so the top of cards are centered on the mouse
+                renderCard(beingDragged.get(i), g, activeX - (CARD_WIDTH / 2), currY);
+                currY += CARD_Y_NO_OVERLAP;
+            }
+        }
+    }
+
+    private void renderBoard(Graphics2D g, List<List<Card>> gameBoard) {
         double x = CARD_X_GAP;
-        double y = CARD_Y_NO_OVERLAP;
+        double y = Y_BOARD_OFFSET;
         for (List<Card> cards : gameBoard) {
             for (Card card : cards) {
                 renderCard(card, g, x, y);
                 y += CARD_Y_NO_OVERLAP;
             }
-            y = CARD_Y_NO_OVERLAP;
+            y = Y_BOARD_OFFSET;
             x += CARD_WIDTH + CARD_X_GAP;
         }
-        if (activeMove != null && activeX != -1 && activeY != -1) {
-            renderCard(gameBoard.get(activeMove.getBoardIndexFrom()).get(activeMove.getToMoveTop()), g, activeX, activeY);
+    }
+
+    private void renderTopRow(Graphics2D g) {
+        List<List<Card>> topRow = game.getTopRow();
+        double x = CARD_X_GAP;
+        double y = CARD_Y_NO_OVERLAP;
+        for (List<Card> cards : topRow) {
+            if (cards.size() > 0) {
+                renderCard(cards.get(cards.size() - 1), g, x, y);
+
+            } else {
+                renderCard(null, g, x, y);
+            }
+            x += CARD_WIDTH + CARD_X_GAP;
         }
+
     }
 
     private void renderCard(Card card, Graphics2D g, double x, double y) {
@@ -69,6 +108,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         g.setColor(Color.black);
         ImageManager.renderSVG(card, g);
+
         //Revert changes.
         g.setTransform(oldTransform);
     }
@@ -81,6 +121,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         CARD_HEIGHT = CARD_WIDTH / (CARD_IMAGE_WIDTH / CARD_IMAGE_HEIGHT);
         CARD_Y_NO_OVERLAP = CARD_HEIGHT / 4;
+        Y_BOARD_OFFSET = CARD_Y_NO_OVERLAP * 2 + CARD_HEIGHT;
     }
 
     @Override
@@ -115,7 +156,11 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         }
 
         if (possibleCards.get(index) != null) {
-            activeMove = new CardMove(index, col);
+            if (game.isValidNewMove(col, index)) {
+                activeMove = new CardMove(index, col);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot move that card, cards beneath it are not the same suit or correctly ordered");
+            }
         }
 
         System.out.println(activeMove);
@@ -133,13 +178,13 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private int findCardIndex(List<Card> cards, int yPressed) {
         //y-coord of the end of the last card in the pile
 
-        int endY = (int) (CARD_HEIGHT + (cards.size() * CARD_Y_NO_OVERLAP));
+        int endY = (int) (Y_BOARD_OFFSET + (CARD_HEIGHT - CARD_Y_NO_OVERLAP) + (cards.size() * CARD_Y_NO_OVERLAP));
         if (yPressed > endY || yPressed < CARD_Y_NO_OVERLAP) {
             //i.e. not clicked on a card
             return -1;
         }
 
-        int index = (int) ((yPressed - CARD_Y_NO_OVERLAP) / (CARD_Y_NO_OVERLAP));
+        int index = (int) ((yPressed - Y_BOARD_OFFSET) / (CARD_Y_NO_OVERLAP));
 
         if (index >= cards.size()) {
             index = cards.size() - 1;
@@ -151,13 +196,24 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (e.getY() < Y_BOARD_OFFSET) {
+            processMoveToTopRow(e);
+        } else {
+            processMoveToBoard(e);
+        }
+
+        activeMove = null;
+        this.repaint();
+    }
+
+    private void processMoveToBoard(MouseEvent e) {
         int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
         int index = findCardIndex(possibleCards, e.getY());
         if (index != -1) {
 
             if (possibleCards.get(index) != null) {
-                activeMove.cardReleased(col);
+                activeMove.cardReleased(col, false);
                 System.out.println("Moving:" + activeMove);
                 String result = activeMove.makeMove(game);
                 if (!result.isEmpty()) {
@@ -165,8 +221,15 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 }
             }
         }
-        activeMove = null;
-        this.repaint();
+    }
+
+    private void processMoveToTopRow(MouseEvent e) {
+        int col = findCol(e.getX());
+        activeMove.cardReleased(col, true);
+        String result = activeMove.makeMove(game);
+        if (!result.isEmpty()) {
+            JOptionPane.showMessageDialog(this, result);
+        }
     }
 
     @Override
