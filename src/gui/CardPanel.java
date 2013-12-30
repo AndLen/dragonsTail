@@ -154,7 +154,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         g.translate(x, y);
         g.scale(xScale, yScale);
 
-        g.setColor(Color.black);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         ImageManager.renderSVG(card, g);
 
         //Revert changes.
@@ -163,10 +163,10 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void componentResized(ComponentEvent e) {
-
+        double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         CARD_X_GAP = getWidth() / 64;
         CARD_WIDTH = (getWidth() - CARD_X_GAP) / 9;
-        CARD_WIDTH = Math.min(CARD_WIDTH, 125);
+        CARD_WIDTH = Math.min(CARD_WIDTH, screenWidth * 0.065);
 
         X_BOARD_OFFSET = (getWidth() - (CARD_WIDTH * 8) - (CARD_X_GAP * 7)) / 2;
 
