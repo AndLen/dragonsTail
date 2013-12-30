@@ -4,12 +4,14 @@ import game.CardGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Andrew on 28/12/13.
  */
-public class CardFrame {
+public class CardFrame implements WindowListener {
     private JFrame frame;
     private CardPanel panel;
     private CardGame game;
@@ -17,6 +19,7 @@ public class CardFrame {
     public CardFrame() {
         game = new CardGame(this);
         frame = new JFrame("Dragon's Tail");
+        frame.addWindowListener(this);
         panel = new CardPanel(game);
         frame.add(panel);
         frame.setLayout(new GridLayout());
@@ -55,5 +58,40 @@ public class CardFrame {
 
     private void startGame() {
         game.dealGame(panel);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

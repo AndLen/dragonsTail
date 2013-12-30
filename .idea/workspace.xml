@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="dragonsTail:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/dragonsTail_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardFrame.java" afterPath="$PROJECT_DIR$/src/gui/CardFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardGame.java" afterPath="$PROJECT_DIR$/src/game/CardGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardPanel.java" afterPath="$PROJECT_DIR$/src/gui/CardPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dragonsTail.iws" />
@@ -69,13 +74,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CardFrame.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CardFrame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="5" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="1037">
+            <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.6449912" vertical-offset="789" max-vertical-offset="1649">
               <folding>
-                <element signature="e#797#923#0" expanded="true" />
-                <element signature="e#912#913#0" expanded="true" />
+                <element signature="e#935#1061#0" expanded="true" />
+                <element signature="e#1050#1051#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,10 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CardPanel.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CardPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="254" column="5" selection-start="8382" selection-end="8382" vertical-scroll-proportion="0.48643762" vertical-offset="3896" max-vertical-offset="7004">
+            <state line="249" column="31" selection-start="8308" selection-end="8308" vertical-scroll-proportion="0.0" vertical-offset="3896" max-vertical-offset="7004">
               <folding />
             </state>
           </provider>
@@ -146,14 +151,15 @@
         <option value="$PROJECT_DIR$/src/game/Card.java" />
         <option value="$PROJECT_DIR$/src/game/CardMove.java" />
         <option value="$PROJECT_DIR$/src/game/CardGame.java" />
-        <option value="$PROJECT_DIR$/src/gui/CardFrame.java" />
         <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
+        <option value="$PROJECT_DIR$/src/gui/CardFrame.java" />
+        <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="41" />
-    <option name="y" value="91" />
+    <option name="x" value="357" />
+    <option name="y" value="103" />
     <option name="width" value="1605" />
     <option name="height" value="993" />
   </component>
@@ -252,20 +258,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -280,20 +272,27 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
-    <property name="SearchEverywhereHistory" value="+&#10;Listener" />
+    <property name="SearchEverywhereHistory" value="ant tar&#10;+&#10;Listener" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="LayoutCode.rearrangeEntriesJava" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/svgSalamander.jar!/" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="false" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
+    <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="dragonstail" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -521,11 +520,15 @@
       <created>1388378684885</created>
       <updated>1388378684885</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Finishing touches. can restart.">
+      <created>1388381791127</created>
+      <updated>1388381791127</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="91" width="1605" height="993" extended-state="0" />
+    <frame x="357" y="103" width="1605" height="993" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -533,20 +536,20 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844242" sideWeight="0.49968535" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32844242" sideWeight="0.50031465" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922733" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32844242" sideWeight="0.49968535" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24984267" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33182845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33182845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -572,7 +575,8 @@
     <MESSAGE value="Added deck to board with simple movement." />
     <MESSAGE value="Should all be working." />
     <MESSAGE value="board has maximum resizing and double-click sends card to top if possible." />
-    <option name="LAST_COMMIT_MESSAGE" value="board has maximum resizing and double-click sends card to top if possible." />
+    <MESSAGE value="Finishing touches. can restart." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finishing touches. can restart." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -586,8 +590,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="24" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
           <folding>
-            <element signature="e#797#923#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#935#1061#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -646,8 +650,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="25" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
           <folding>
-            <element signature="e#797#923#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#935#1061#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -692,8 +696,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="25" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="612">
           <folding>
-            <element signature="e#797#923#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#935#1061#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -811,20 +815,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="5" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="1037">
-          <folding>
-            <element signature="e#797#923#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
-          </folding>
+        <state line="249" column="31" selection-start="8308" selection-end="8308" vertical-scroll-proportion="0.0" vertical-offset="3896" max-vertical-offset="7004">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="254" column="5" selection-start="8382" selection-end="8382" vertical-scroll-proportion="0.48643762" vertical-offset="3896" max-vertical-offset="7004">
-          <folding />
+        <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.6449912" vertical-offset="789" max-vertical-offset="1649">
+          <folding>
+            <element signature="e#935#1061#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -833,11 +837,18 @@
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
-          <artifact-editor />
+          <artifact-editor>
+            <show-content>
+              <type id="library" />
+              <type id="artifact" />
+            </show-content>
+          </artifact-editor>
+          <last-edited>dragonsTail:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

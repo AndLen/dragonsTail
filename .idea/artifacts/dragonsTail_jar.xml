@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="dragonsTail:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/dragonsTail</output-path>
+    <root id="root">
+      <element id="archive" name="dragonsTail.jar">
+        <element id="module-output" name="dragonsTail" />
+      </element>
+      <element id="library" level="project" name="svgSalamander" />
+    </root>
+  </artifact>
+</component>
