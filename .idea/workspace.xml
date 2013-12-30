@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/dragonsTail_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardFrame.java" afterPath="$PROJECT_DIR$/src/gui/CardFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dragonsTail.iws" />
@@ -158,8 +155,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="357" />
-    <option name="y" value="103" />
+    <option name="x" value="267" />
+    <option name="y" value="43" />
     <option name="width" value="1605" />
     <option name="height" value="993" />
   </component>
@@ -524,11 +521,15 @@
       <created>1388381791127</created>
       <updated>1388381791127</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Small fix">
+      <created>1388383773491</created>
+      <updated>1388383773491</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="357" y="103" width="1605" height="993" extended-state="0" />
+    <frame x="267" y="43" width="1605" height="993" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -576,7 +577,8 @@
     <MESSAGE value="Should all be working." />
     <MESSAGE value="board has maximum resizing and double-click sends card to top if possible." />
     <MESSAGE value="Finishing touches. can restart." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finishing touches. can restart." />
+    <MESSAGE value="Small fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
