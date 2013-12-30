@@ -24,43 +24,55 @@ public class CardMove {
         moveType = MOVE_TYPE.FROM_DECK;
     }
 
+    public CardMove(int boardIndexFrom) {
+        toMoveTop = 1;
+        this.boardIndexFrom = boardIndexFrom;
+        moveType = MOVE_TYPE.FROM_PILE;
+    }
+
     public void cardReleased(int boardIndexTo, boolean topRow) {
         this.boardIndexTo = boardIndexTo;
         this.topRow = topRow;
     }
 
     public String makeMove(CardGame game) {
-        switch (moveType) {
-            case FROM_DECK:
-                return makeDeckMove(game);
-            case FROM_BOARD:
-                return makeBoardMove(game);
-            case FROM_PILE:
-                return makePileMove(game);
-            default:
-                return "";
-        }
-
-    }
-
-    private String makePileMove(CardGame game) {
-        return "";
-    }
-
-    private String makeDeckMove(CardGame game) {
-        return "";
-    }
-
-    private String makeBoardMove(CardGame game) {
         if (boardIndexTo != -1) {
-            if (topRow) {
-                return game.moveCardOntoTopRow(toMoveTop, boardIndexFrom, boardIndexTo);
-
-            } else {
-                return game.moveCardOntoCard(toMoveTop, boardIndexFrom, boardIndexTo);
+            switch (moveType) {
+                case FROM_DECK:
+                    return makeDeckMove(game);
+                case FROM_BOARD:
+                    return makeBoardMove(game);
+                case FROM_PILE:
+                    return makePileMove(game);
+                default:
+                    return "";
             }
         }
         return "";
+    }
+
+    private String makePileMove(CardGame game) {
+        if (topRow) {
+            return game.moveCardOntoTopRowFromRow(boardIndexFrom, boardIndexTo);
+        } else {
+            return game.moveCardOntoCardFromTopRow(boardIndexFrom, boardIndexTo);
+        }
+    }
+
+    private String makeDeckMove(CardGame game) {
+        if (topRow) {
+            return game.moveCardOntoTopRowFromDeck(boardIndexTo);
+        } else {
+            return game.moveCardOntoCardFromDeck(boardIndexTo);
+        }
+    }
+
+    private String makeBoardMove(CardGame game) {
+        if (topRow) {
+            return game.moveCardOntoTopRowFromBoard(toMoveTop, boardIndexFrom, boardIndexTo);
+        } else {
+            return game.moveCardOntoCardFromBoard(toMoveTop, boardIndexFrom, boardIndexTo);
+        }
     }
 
     public int getBoardIndexFrom() {

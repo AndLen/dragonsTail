@@ -63,8 +63,6 @@ public class CardGame {
                     }
                 }
             }
-            ;
-
         }
         deck.addAll(cardList);
     }
@@ -81,16 +79,51 @@ public class CardGame {
         return Collections.unmodifiableList(board);
     }
 
-    public String moveCardOntoCard(int toMoveTop, int boardIndexFrom, int boardIndexTo) {
+    //Should combine this and below method
+
+    public String moveCardOntoCardFromDeck(int boardIndexTo) {
+        if (boardIndexTo == 0) {
+            //Moving onto dragon's tail, anything goes.
+            board.get(0).add(deck.poll());
+            return "";
+        } else {
+            String result = moveCardOntoCard(Arrays.asList(deck.peek()), boardIndexTo, 0);
+            if (result.isEmpty()) {
+                deck.poll();
+            }
+            return result;
+        }
+    }
+
+    public String moveCardOntoCardFromTopRow(int boardIndexFrom, int boardIndexTo) {
+        List<Card> from = topRow.get(boardIndexFrom);
+        String result = moveCardOntoCard(from, boardIndexTo, from.size() - 1);
+        if (result.isEmpty()) {
+            from.remove(from.size() - 1);
+        }
+        return result;
+    }
+
+    public String moveCardOntoCardFromBoard(int toMoveTop, int boardIndexFrom, int boardIndexTo) {
         List<Card> from = board.get(boardIndexFrom);
+        String result = moveCardOntoCard(from, boardIndexTo, toMoveTop);
+        if (result.isEmpty()) {
+            while (from.size() > toMoveTop) {
+                from.remove(toMoveTop);
+            }
+        }
+        return result;
+    }
+
+    private String moveCardOntoCard(List<Card> from, int boardIndexTo, int listIndexFrom) {
         List<Card> to = board.get(boardIndexTo);
-        Card firstMoved = from.get(toMoveTop);
+        Card toMove = from.get(listIndexFrom);
         Card lastInRow = to.get(to.size() - 1);
-        if (firstMoved.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
-            if (suitMoveIsValid(firstMoved.getSuit(), lastInRow.getSuit())) {
+        if (toMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
+            if (suitMoveIsValid(toMove.getSuit(), lastInRow.getSuit())) {
                 //Valid move
-                while (toMoveTop < from.size()) {
-                    to.add(from.remove(toMoveTop));
+                for (int i = listIndexFrom; i < from.size(); i++) {
+                    to.add(from.get(i));
                 }
                 return "";
 
@@ -98,7 +131,7 @@ public class CardGame {
                 return "You can only move onto a card of the same suit or different colour.";
             }
         } else {
-            return firstMoved.getRank().name() + " is not one lower than " + lastInRow.getRank().name();
+            return toMove.getRank().name() + " is not one lower than " + lastInRow.getRank().name();
         }
     }
 
@@ -133,26 +166,54 @@ public class CardGame {
         return Collections.unmodifiableList(topRow);
     }
 
-    public String moveCardOntoTopRow(int toMoveTop, int boardIndexFrom, int boardIndexTo) {
-        List<Card> pile = topRow.get(boardIndexTo);
+    public String moveCardOntoTopRowFromDeck(int boardIndexTo) {
+        String result = moveCardOntoTopRow(Arrays.asList(deck.peek()), boardIndexTo, 0);
+        if (result.isEmpty()) {
+            deck.poll();
+        }
+        return result;
+    }
+
+    //Again should combine these
+    public String moveCardOntoTopRowFromRow(int boardIndexFrom, int boardIndexTo) {
+        List<Card> from = topRow.get(boardIndexFrom);
+        String result = moveCardOntoTopRow(from, boardIndexFrom, boardIndexTo);
+        if (result.isEmpty()) {
+            from.remove(from.size() - 1);
+        }
+        return result;
+
+    }
+
+    public String moveCardOntoTopRowFromBoard(int toMoveTop, int boardIndexFrom, int boardIndexTo) {
         List<Card> from = board.get(boardIndexFrom);
-        Card fromTop = from.get(toMoveTop);
+        String result = moveCardOntoTopRow(from, boardIndexTo, toMoveTop);
+        if (result.isEmpty()) {
+            from.remove(from.size() - 1);
+        }
+        return result;
+    }
+
+    private String moveCardOntoTopRow(List<Card> from, int boardIndexTo, int listIndexFrom) {
+        List<Card> pile = topRow.get(boardIndexTo);
+        Card fromTop = from.get(listIndexFrom);
         if (pile.size() == 0) {
             if (fromTop.getRank() == Card.Rank.ACE) {
-                pile.add(from.remove(toMoveTop));
+                pile.add(from.get(listIndexFrom));
+                return "";
             } else {
                 return "Can only move an Ace to an empty pile.";
             }
         } else {
             Card pileTop = pile.get(pile.size() - 1);
 
-
-            if (toMoveTop != from.size() - 1) {
+            if (listIndexFrom != from.size() - 1) {
                 return "Can only move the bottom card to the top row.";
             }
             if (fromTop.getSuit().ordinal() == pileTop.getSuit().ordinal()) {
                 if (fromTop.getRank().ordinal() == pileTop.getRank().ordinal() + 1) {
-                    pile.add(from.remove(toMoveTop));
+                    pile.add(from.get(listIndexFrom));
+                    return "";
                 } else {
                     return fromTop.getRank().name() + " is not one higher than " + pileTop.getRank().name();
                 }
@@ -161,10 +222,11 @@ public class CardGame {
                 return "Can only move to a pile of the same suit";
             }
         }
-        return "";
     }
 
     public Queue<Card> getDeck() {
         return deck;
     }
+
+
 }

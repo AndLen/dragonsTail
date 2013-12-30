@@ -20,6 +20,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private static final double CARD_IMAGE_HEIGHT = 312.8125;
     protected static double CARD_WIDTH;
     protected static double CARD_HEIGHT;
+    private static int DRAGONS_TAIL_HIDDEN_CARDS = 0;
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
     private static double Y_BOARD_OFFSET;
@@ -57,6 +58,9 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         Card topCard = deck.peek();
         double x = CARD_X_GAP;
         double y = this.getHeight() - CARD_Y_NO_OVERLAP - CARD_HEIGHT;
+
+        g.setColor(Color.white);
+        g.drawString(deck.size() + " cards remaining", (float) x, (float) y - 1);
         renderCard(topCard, g, x, y);
     }
 
@@ -87,16 +91,18 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         double tailYSize = Y_BOARD_OFFSET + (dragonsTail.size() * CARD_Y_NO_OVERLAP) + (CARD_HEIGHT - CARD_Y_NO_OVERLAP);
 
         if (tailYSize > maxY) {
-            int cardsToSkip = 0;
+            DRAGONS_TAIL_HIDDEN_CARDS = 0;
             while (tailYSize > maxY) {
                 tailYSize -= CARD_Y_NO_OVERLAP;
-                cardsToSkip++;
+                DRAGONS_TAIL_HIDDEN_CARDS++;
             }
             //Render cards we can show
-            for (int i = cardsToSkip; i < dragonsTail.size(); i++) {
+            for (int i = DRAGONS_TAIL_HIDDEN_CARDS; i < dragonsTail.size(); i++) {
                 renderCard(dragonsTail.get(i), g, x, y);
                 y += CARD_Y_NO_OVERLAP;
             }
+            g.setColor(Color.white);
+            g.drawString(CardPanel.DRAGONS_TAIL_HIDDEN_CARDS + " cards hidden", (float) CARD_X_GAP, (float) Y_BOARD_OFFSET - 1);
 
         } else {
             //Render as normal.
@@ -203,7 +209,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private void processMoveFromBoard(MouseEvent e) {
         int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
-        int index = findCardIndex(possibleCards, e.getY());
+        int index = findCardIndex(possibleCards, e.getY(), col == 0);
         if (index == -1) {
             //Indicates none found.
             return;
@@ -236,7 +242,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         return col;
     }
 
-    private int findCardIndex(List<Card> cards, int yPressed) {
+    private int findCardIndex(List<Card> cards, int yPressed, boolean isDragonsTail) {
         //y-coord of the end of the last card in the pile
 
         int endY = (int) (Y_BOARD_OFFSET + (CARD_HEIGHT - CARD_Y_NO_OVERLAP) + (cards.size() * CARD_Y_NO_OVERLAP));
@@ -246,6 +252,11 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         }
 
         int index = (int) ((yPressed - Y_BOARD_OFFSET) / (CARD_Y_NO_OVERLAP));
+
+        //If it's a dragon's tail, we need to compensate for the cards hidden.
+        if (isDragonsTail) {
+            index += DRAGONS_TAIL_HIDDEN_CARDS;
+        }
 
         if (index >= cards.size()) {
             index = cards.size() - 1;
@@ -274,7 +285,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private void processMoveToBoard(MouseEvent e) {
         int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
-        int index = findCardIndex(possibleCards, e.getY());
+        int index = findCardIndex(possibleCards, e.getY(), col == 0);
         if (index != -1) {
 
             if (possibleCards.get(index) != null) {
