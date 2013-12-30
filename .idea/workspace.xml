@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Card.java" afterPath="$PROJECT_DIR$/src/game/Card.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardGame.java" afterPath="$PROJECT_DIR$/src/game/CardGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardMove.java" afterPath="$PROJECT_DIR$/src/game/CardMove.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardPanel.java" afterPath="$PROJECT_DIR$/src/gui/CardPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -78,14 +78,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CardGame.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CardGame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/CardGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="41" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.0" vertical-offset="3043" max-vertical-offset="3995">
+            <state line="54" column="34" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.6943463" vertical-offset="474" max-vertical-offset="4250">
               <folding>
-                <element signature="e#7696#7697#0" expanded="true" />
-                <element signature="e#7723#7724#0" expanded="true" />
+                <element signature="e#8152#8153#0" expanded="true" />
+                <element signature="e#8179#8180#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CardPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="282" column="21" selection-start="9269" selection-end="9269" vertical-scroll-proportion="0.0" vertical-offset="4401" max-vertical-offset="6511">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -93,7 +102,7 @@
       <file leaf-file-name="CardMove.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/CardMove.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="41" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0" vertical-offset="850" max-vertical-offset="1717">
+            <state line="71" column="34" selection-start="1952" selection-end="1952" vertical-scroll-proportion="0.0" vertical-offset="719" max-vertical-offset="1717">
               <folding>
                 <element signature="e#2173#2174#0" expanded="true" />
                 <element signature="e#2210#2211#0" expanded="true" />
@@ -101,27 +110,6 @@
                 <element signature="e#2275#2276#0" expanded="true" />
                 <element signature="e#2478#2479#0" expanded="true" />
                 <element signature="e#2509#2510#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CardPanel.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="45" selection-start="8814" selection-end="8814" vertical-scroll-proportion="0.4764398" vertical-offset="4215" max-vertical-offset="5661">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Card.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/Card.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="731">
-              <folding>
-                <element signature="e#103#104#0" expanded="true" />
-                <element signature="e#130#131#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,22 +137,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/game/Card.java" />
         <option value="$PROJECT_DIR$/src/game/CardError.java" />
         <option value="$PROJECT_DIR$/src/game/CardMoveResult.java" />
         <option value="$PROJECT_DIR$/src/gui/CardFrame.java" />
         <option value="$PROJECT_DIR$/src/gui/ImageManager.java" />
+        <option value="$PROJECT_DIR$/src/game/Card.java" />
         <option value="$PROJECT_DIR$/src/game/CardMove.java" />
-        <option value="$PROJECT_DIR$/src/game/CardGame.java" />
         <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
+        <option value="$PROJECT_DIR$/src/game/CardGame.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="227" />
-    <option name="y" value="113" />
+    <option name="x" value="153" />
+    <option name="y" value="37" />
     <option name="width" value="1605" />
-    <option name="height" value="1000" />
+    <option name="height" value="993" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -517,11 +505,15 @@
       <created>1388371571700</created>
       <updated>1388371571700</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Should all be working.">
+      <created>1388376138137</created>
+      <updated>1388376138137</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="227" y="113" width="1605" height="1000" extended-state="0" />
+    <frame x="153" y="37" width="1605" height="993" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -542,7 +534,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24984267" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32922733" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33182845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -566,7 +558,8 @@
     <MESSAGE value="Can now move cards with basic checks." />
     <MESSAGE value="Added top row of cards, with movement to them. Also added all logic checks for board movement." />
     <MESSAGE value="Added deck to board with simple movement." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deck to board with simple movement." />
+    <MESSAGE value="Should all be working." />
+    <option name="LAST_COMMIT_MESSAGE" value="Should all be working." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -587,8 +580,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="40" selection-start="2351" selection-end="2351" vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="1683">
           <folding>
-            <element signature="e#7696#7697#0" expanded="true" />
-            <element signature="e#7723#7724#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8179#8180#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -618,8 +611,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="27" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="765">
           <folding>
-            <element signature="e#103#104#0" expanded="true" />
-            <element signature="e#130#131#0" expanded="true" />
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -642,8 +637,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="9" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1173">
           <folding>
-            <element signature="e#7696#7697#0" expanded="true" />
-            <element signature="e#7723#7724#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8179#8180#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -652,8 +647,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="27" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="765">
           <folding>
-            <element signature="e#103#104#0" expanded="true" />
-            <element signature="e#130#131#0" expanded="true" />
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -683,8 +680,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="3" selection-start="43" selection-end="49" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="850">
           <folding>
-            <element signature="e#7696#7697#0" expanded="true" />
-            <element signature="e#7723#7724#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8179#8180#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -693,8 +690,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="27" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="765">
           <folding>
-            <element signature="e#103#104#0" expanded="true" />
-            <element signature="e#130#131#0" expanded="true" />
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -740,16 +739,6 @@
         <state line="6" column="13" selection-start="157" selection-end="157" vertical-scroll-proportion="0.1551095" vertical-offset="0" max-vertical-offset="548" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Card.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="731">
-          <folding>
-            <element signature="e#103#104#0" expanded="true" />
-            <element signature="e#130#131#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/ImageManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="137" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.0" vertical-offset="409" max-vertical-offset="1105">
@@ -764,9 +753,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_45/src.zip!/java/util/Queue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="216" column="6" selection-start="8016" selection-end="8016" vertical-scroll-proportion="0.7626527" vertical-offset="2674" max-vertical-offset="3247">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="70" selection-end="70" vertical-scroll-proportion="0.14834206" vertical-offset="0" max-vertical-offset="833">
+          <folding>
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/CardMove.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="41" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0" vertical-offset="850" max-vertical-offset="1717">
+        <state line="71" column="34" selection-start="1952" selection-end="1952" vertical-scroll-proportion="0.0" vertical-offset="719" max-vertical-offset="1717">
           <folding>
             <element signature="e#2173#2174#0" expanded="true" />
             <element signature="e#2210#2211#0" expanded="true" />
@@ -778,27 +786,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_45/src.zip!/java/util/Queue.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="216" column="6" selection-start="8016" selection-end="8016" vertical-scroll-proportion="0.7626527" vertical-offset="2674" max-vertical-offset="3247">
+        <state line="282" column="21" selection-start="9269" selection-end="9269" vertical-scroll-proportion="0.0" vertical-offset="4401" max-vertical-offset="6511">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/CardGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="41" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.0" vertical-offset="3043" max-vertical-offset="3995">
+        <state line="54" column="34" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.6943463" vertical-offset="474" max-vertical-offset="4250">
           <folding>
-            <element signature="e#7696#7697#0" expanded="true" />
-            <element signature="e#7723#7724#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8179#8180#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="45" selection-start="8814" selection-end="8814" vertical-scroll-proportion="0.4764398" vertical-offset="4215" max-vertical-offset="5661">
-          <folding />
         </state>
       </provider>
     </entry>

@@ -20,10 +20,13 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private static final double CARD_IMAGE_HEIGHT = 312.8125;
     protected static double CARD_WIDTH;
     protected static double CARD_HEIGHT;
+    private static int NUMBER_CLICKS = 0;
+    private static long LAST_PRESS = System.currentTimeMillis();
     private static int DRAGONS_TAIL_HIDDEN_CARDS = 0;
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
     private static double Y_BOARD_OFFSET;
+    private static double X_BOARD_OFFSET;
     private final CardGame game;
     //Moving cards
     private CardMove activeMove = null;
@@ -56,7 +59,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private void renderDeck(Graphics2D g) {
         Queue<Card> deck = game.getDeck();
         Card topCard = deck.peek();
-        double x = CARD_X_GAP;
+        double x = X_BOARD_OFFSET;
         double y = this.getHeight() - CARD_Y_NO_OVERLAP - CARD_HEIGHT;
 
         g.setColor(Color.white);
@@ -82,7 +85,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     }
 
     private void renderBoard(Graphics2D g, List<List<Card>> gameBoard) {
-        double x = CARD_X_GAP;
+        double x = X_BOARD_OFFSET;
         double y = Y_BOARD_OFFSET;
 
         /**Render the dragon's tail - special case due to size **/
@@ -102,7 +105,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 y += CARD_Y_NO_OVERLAP;
             }
             g.setColor(Color.white);
-            g.drawString(CardPanel.DRAGONS_TAIL_HIDDEN_CARDS + " cards hidden", (float) CARD_X_GAP, (float) Y_BOARD_OFFSET - 1);
+            g.drawString(CardPanel.DRAGONS_TAIL_HIDDEN_CARDS + " cards hidden", (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
 
         } else {
             //Render as normal.
@@ -128,7 +131,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     private void renderTopRow(Graphics2D g) {
         List<List<Card>> topRow = game.getTopRow();
-        double x = CARD_X_GAP;
+        double x = X_BOARD_OFFSET;
         double y = CARD_Y_NO_OVERLAP;
         for (List<Card> cards : topRow) {
             if (cards.size() > 0) {
@@ -163,6 +166,9 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         CARD_X_GAP = getWidth() / 64;
         CARD_WIDTH = (getWidth() - CARD_X_GAP) / 9;
+        CARD_WIDTH = Math.min(CARD_WIDTH, 100);
+
+        X_BOARD_OFFSET = (getWidth() - (CARD_WIDTH * 8) - (CARD_X_GAP * 7)) / 2;
 
         CARD_HEIGHT = CARD_WIDTH / (CARD_IMAGE_WIDTH / CARD_IMAGE_HEIGHT);
         CARD_Y_NO_OVERLAP = CARD_HEIGHT / 4;
@@ -191,6 +197,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
+        LAST_PRESS = System.currentTimeMillis();
         if (e.getY() < Y_BOARD_OFFSET) {
             processMoveFromTopRow(e);
         } else if (clickedOnDeck(e)) {
@@ -237,7 +244,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     }
 
     private int findCol(int xPressed) {
-        int col = (int) ((xPressed - CARD_X_GAP) / (CARD_WIDTH + CARD_X_GAP));
+        int col = (int) ((xPressed - X_BOARD_OFFSET) / (CARD_WIDTH + CARD_X_GAP));
         System.out.println("Col: " + col);
         return col;
     }
@@ -272,7 +279,20 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (e.getY() < Y_BOARD_OFFSET) {
+        if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
+            //Clicked off the board, nothing to do with us.
+            return;
+        }
+        System.out.println(System.currentTimeMillis() - LAST_PRESS);
+        if ((System.currentTimeMillis() - LAST_PRESS) < 125) {
+            NUMBER_CLICKS++;
+        } else {
+            NUMBER_CLICKS = 0;
+        }
+        if (NUMBER_CLICKS == 2) {
+            doubleClick(e);
+            NUMBER_CLICKS = 0;
+        } else if (e.getY() < Y_BOARD_OFFSET) {
             processMoveToTopRow(e);
         } else {
             processMoveToBoard(e);
@@ -280,6 +300,36 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         activeMove = null;
         this.repaint();
+    }
+
+    //TODO: Empty columns
+    private void doubleClick(MouseEvent e) {
+        System.out.println("DOUBLE CLICK");
+        if (e.getY() > Y_BOARD_OFFSET) {
+            int col = findCol(e.getX());
+            List<Card> cardList = game.getBoard().get(col);
+            Card toSendUp = cardList.get(cardList.size() - 1);
+            List<List<Card>> topRow = game.getTopRow();
+
+            System.out.println(toSendUp);
+            //Find where it fits and send it there
+            for (List<Card> pile : topRow) {
+                if (toSendUp.getRank() == Card.Rank.ACE) {
+                    //find empty
+                    if (pile.isEmpty()) {
+                        pile.add(cardList.remove(cardList.size() - 1));
+                        return;
+                    }
+                } else if (!pile.isEmpty()) {
+                    Card topOfPile = pile.get(pile.size() - 1);
+                    if (toSendUp.matchesAndOneAbove(topOfPile)) {
+                        pile.add(cardList.remove(cardList.size() - 1));
+                        return;
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Cannot send that to the top");
+        }
     }
 
     private void processMoveToBoard(MouseEvent e) {
@@ -292,7 +342,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 activeMove.cardReleased(col, false);
                 System.out.println("Moving:" + activeMove);
                 String result = activeMove.makeMove(game);
-                if (!result.isEmpty()) {
+                if (!result.isEmpty() && !result.equals("ONTO_SELF")) {
                     JOptionPane.showMessageDialog(this, result);
                 }
             }
@@ -303,7 +353,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         int col = findCol(e.getX());
         activeMove.cardReleased(col, true);
         String result = activeMove.makeMove(game);
-        if (!result.isEmpty()) {
+        if (!result.isEmpty() && !result.equals("ONTO_SELF")) {
             JOptionPane.showMessageDialog(this, result);
         }
     }

@@ -41,7 +41,6 @@ public class CardGame {
             if (i % 2 == 0) {
                 for (int j = 0; j < 8; j++) {
                     Card toAdd = cardList.remove(0);
-                    System.out.print(toAdd + " ");
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
@@ -53,7 +52,6 @@ public class CardGame {
             } else {
                 for (int j = 7; j >= 0; j--) {
                     Card toAdd = cardList.remove(0);
-                    System.out.print(toAdd + " ");
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
@@ -118,7 +116,19 @@ public class CardGame {
     private String moveCardOntoCard(List<Card> from, int boardIndexTo, int listIndexFrom) {
         List<Card> to = board.get(boardIndexTo);
         Card toMove = from.get(listIndexFrom);
+        if(to.isEmpty()){
+            //Means we can move anything there.
+            for (int i = listIndexFrom; i < from.size(); i++) {
+                to.add(from.get(i));
+            }
+            return "";
+        }
         Card lastInRow = to.get(to.size() - 1);
+
+        if (toMove == lastInRow) {
+            //Don't want to move onto self, nor display warning
+            return "ONTO_SELF";
+        }
         if (toMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
             if (suitMoveIsValid(toMove.getSuit(), lastInRow.getSuit())) {
                 //Valid move
@@ -195,6 +205,7 @@ public class CardGame {
     }
 
     private String moveCardOntoTopRow(List<Card> from, int boardIndexTo, int listIndexFrom) {
+
         List<Card> pile = topRow.get(boardIndexTo);
         Card fromTop = from.get(listIndexFrom);
         if (pile.size() == 0) {
@@ -206,7 +217,11 @@ public class CardGame {
             }
         } else {
             Card pileTop = pile.get(pile.size() - 1);
-
+            //Want reference equality
+            if (pileTop == fromTop) {
+                //Don't want to move onto self, nor display warning
+                return "ONTO_SELF";
+            }
             if (listIndexFrom != from.size() - 1) {
                 return "Can only move the bottom card to the top row.";
             }
