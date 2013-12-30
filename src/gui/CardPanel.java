@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by Andrew on 28/12/13.
@@ -52,18 +53,26 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     }
 
     private void renderDeck(Graphics2D g) {
-        List<Card> deck = game.getDeck();
+        Queue<Card> deck = game.getDeck();
+        Card topCard = deck.peek();
+        double x = CARD_X_GAP;
+        double y = this.getHeight() - CARD_Y_NO_OVERLAP - CARD_HEIGHT;
+        renderCard(topCard, g, x, y);
     }
 
     private void renderDragCards(Graphics2D g, List<List<Card>> gameBoard) {
         if (activeMove != null && activeX != -1 && activeY != -1) {
-            List<Card> beingDragged = gameBoard.get(activeMove.getBoardIndexFrom());
-            double currY = activeY;
-            for (int i = activeMove.getToMoveTop(); i < beingDragged.size(); i++) {
+            if (activeMove.getMoveType() == CardMove.MOVE_TYPE.FROM_DECK) {
+                renderCard(game.getDeck().peek(), g, activeX - (CARD_WIDTH / 2), activeY);
+            } else {
+                List<Card> beingDragged = gameBoard.get(activeMove.getBoardIndexFrom());
+                double currY = activeY;
+                for (int i = activeMove.getToMoveTop(); i < beingDragged.size(); i++) {
 
-                //Render so the top of cards are centered on the mouse
-                renderCard(beingDragged.get(i), g, activeX - (CARD_WIDTH / 2), currY);
-                currY += CARD_Y_NO_OVERLAP;
+                    //Render so the top of cards are centered on the mouse
+                    renderCard(beingDragged.get(i), g, activeX - (CARD_WIDTH / 2), currY);
+                    currY += CARD_Y_NO_OVERLAP;
+                }
             }
         }
     }
@@ -71,8 +80,38 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private void renderBoard(Graphics2D g, List<List<Card>> gameBoard) {
         double x = CARD_X_GAP;
         double y = Y_BOARD_OFFSET;
-        for (List<Card> cards : gameBoard) {
-            for (Card card : cards) {
+
+        /**Render the dragon's tail - special case due to size **/
+        double maxY = getHeight() - CARD_Y_NO_OVERLAP * 2 - CARD_HEIGHT;
+        List<Card> dragonsTail = gameBoard.get(0);
+        double tailYSize = Y_BOARD_OFFSET + (dragonsTail.size() * CARD_Y_NO_OVERLAP) + (CARD_HEIGHT - CARD_Y_NO_OVERLAP);
+
+        if (tailYSize > maxY) {
+            int cardsToSkip = 0;
+            while (tailYSize > maxY) {
+                tailYSize -= CARD_Y_NO_OVERLAP;
+                cardsToSkip++;
+            }
+            //Render cards we can show
+            for (int i = cardsToSkip; i < dragonsTail.size(); i++) {
+                renderCard(dragonsTail.get(i), g, x, y);
+                y += CARD_Y_NO_OVERLAP;
+            }
+
+        } else {
+            //Render as normal.
+            for (Card card : dragonsTail) {
+                renderCard(card, g, x, y);
+                y += CARD_Y_NO_OVERLAP;
+            }
+        }
+        y = Y_BOARD_OFFSET;
+        x += CARD_WIDTH + CARD_X_GAP;
+        /** Done rendering dragon's tail**/
+
+        //Render other cards normally
+        for (int i = 1; i < gameBoard.size(); i++) {
+            for (Card card : gameBoard.get(i)) {
                 renderCard(card, g, x, y);
                 y += CARD_Y_NO_OVERLAP;
             }
@@ -146,7 +185,22 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (e.getY() < Y_BOARD_OFFSET) {
+            processMoveFromTopRow(e);
+        } else if (clickedOnDeck(e)) {
+            processMoveFromDeck();
+        } else {
+            processMoveFromBoard(e);
+        }
 
+
+        System.out.println(activeMove);
+        activeX = e.getX();
+        activeY = e.getY();
+        this.repaint();
+    }
+
+    private void processMoveFromBoard(MouseEvent e) {
         int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
         int index = findCardIndex(possibleCards, e.getY());
@@ -162,11 +216,18 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 JOptionPane.showMessageDialog(this, "Cannot move that card, cards beneath it are not the same suit or correctly ordered");
             }
         }
+    }
 
-        System.out.println(activeMove);
-        activeX = e.getX();
-        activeY = e.getY();
-        this.repaint();
+    private void processMoveFromDeck() {
+        //Can assume did click on the deck.
+        final Queue<Card> deck = game.getDeck();
+        if (!deck.isEmpty()) {
+            activeMove = new CardMove();
+        }
+    }
+
+    private void processMoveFromTopRow(MouseEvent e) {
+
     }
 
     private int findCol(int xPressed) {
@@ -192,6 +253,10 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         System.out.println("Index: " + index);
         return index;
+    }
+
+    private boolean clickedOnDeck(MouseEvent e) {
+        return (findCol(e.getX()) == 0 && e.getY() > (getHeight() - CARD_Y_NO_OVERLAP * 2 - CARD_HEIGHT));
     }
 
     @Override
