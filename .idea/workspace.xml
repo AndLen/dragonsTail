@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardFrame.java" afterPath="$PROJECT_DIR$/src/gui/CardFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardGame.java" afterPath="$PROJECT_DIR$/src/game/CardGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardPanel.java" afterPath="$PROJECT_DIR$/src/gui/CardPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -74,10 +72,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CardFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CardFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="13" selection-start="2965" selection-end="2965" vertical-scroll-proportion="0.68706536" vertical-offset="1053" max-vertical-offset="2278">
+            <state line="103" column="5" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0" vertical-offset="1053" max-vertical-offset="2278">
               <folding />
             </state>
           </provider>
@@ -92,10 +90,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CardPanel.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CardPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="4" selection-start="1398" selection-end="1819" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="7106">
+            <state line="120" column="104" selection-start="4769" selection-end="4769" vertical-scroll-proportion="0.73512745" vertical-offset="1368" max-vertical-offset="7106">
               <folding />
             </state>
           </provider>
@@ -139,8 +137,8 @@
         <option value="$PROJECT_DIR$/src/game/CardMove.java" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/src/game/CardGame.java" />
-        <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
         <option value="$PROJECT_DIR$/src/gui/CardFrame.java" />
+        <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
       </list>
     </option>
   </component>
@@ -522,7 +520,11 @@
       <created>1388387813472</created>
       <updated>1388387813472</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Bugfixing, restart in menu.">
+      <created>1388450264319</created>
+      <updated>1388450264319</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -577,7 +579,8 @@
     <MESSAGE value="Small fix" />
     <MESSAGE value="Small fix&#10;" />
     <MESSAGE value="Prettier rendering" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prettier rendering" />
+    <MESSAGE value="Bugfixing, restart in menu." />
+    <option name="LAST_COMMIT_MESSAGE" value="Bugfixing, restart in menu." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -891,16 +894,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="4" selection-start="1398" selection-end="1819" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="7106">
+        <state line="103" column="5" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0" vertical-offset="1053" max-vertical-offset="2278">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="13" selection-start="2965" selection-end="2965" vertical-scroll-proportion="0.68706536" vertical-offset="1053" max-vertical-offset="2278">
+        <state line="120" column="104" selection-start="4769" selection-end="4769" vertical-scroll-proportion="0.73512745" vertical-offset="1368" max-vertical-offset="7106">
           <folding />
         </state>
       </provider>
