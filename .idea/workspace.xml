@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardGame.java" afterPath="$PROJECT_DIR$/src/game/CardGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardPanel.java" afterPath="$PROJECT_DIR$/src/gui/CardPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dragonsTail.iws" />
@@ -88,7 +87,7 @@
       <file leaf-file-name="CardGame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/CardGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="151" column="0" selection-start="5072" selection-end="5072" vertical-scroll-proportion="0.64534074" vertical-offset="2035" max-vertical-offset="4675">
+            <state line="133" column="18" selection-start="4303" selection-end="4303" vertical-scroll-proportion="0.472879" vertical-offset="1853" max-vertical-offset="4675">
               <folding />
             </state>
           </provider>
@@ -536,7 +535,11 @@
       <created>1388452104141</created>
       <updated>1388452104141</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixed rule w/ moving multiple cards">
+      <created>1388453726591</created>
+      <updated>1388453726591</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -594,7 +597,8 @@
     <MESSAGE value="Bugfixing, restart in menu." />
     <MESSAGE value="Small fixes with rendering text" />
     <MESSAGE value="String fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="String fixes" />
+    <MESSAGE value="Fixed rule w/ moving multiple cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed rule w/ moving multiple cards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -941,7 +945,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/CardGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="0" selection-start="5072" selection-end="5072" vertical-scroll-proportion="0.64534074" vertical-offset="2035" max-vertical-offset="4675">
+        <state line="133" column="18" selection-start="4303" selection-end="4303" vertical-scroll-proportion="0.472879" vertical-offset="1853" max-vertical-offset="4675">
           <folding />
         </state>
       </provider>

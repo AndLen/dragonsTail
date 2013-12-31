@@ -47,7 +47,7 @@ public class CardGame {
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -58,7 +58,7 @@ public class CardGame {
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -134,7 +134,7 @@ public class CardGame {
             return "ONTO_SELF";
         }
         if (firstToMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
-            if (to.size() > 1) {
+            if (listIndexFrom < from.size() -1) {
                 //Needs to match suit with one it's landing on too
                 if (firstToMove.getSuit() == lastInRow.getSuit()) {
                     for (int i = listIndexFrom; i < from.size(); i++) {
