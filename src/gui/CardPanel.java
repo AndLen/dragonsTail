@@ -62,7 +62,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         double y = this.getHeight() - CARD_Y_NO_OVERLAP - CARD_HEIGHT;
 
         g.setColor(Color.white);
-        g.drawString(deck.size() + " cards remaining", (float) x, (float) y - 1);
+        g.drawString(deck.size() + " cards in deck", (float) x, (float) y - 1);
         renderCard(topCard, g, x, y);
     }
 
@@ -102,7 +102,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         }
         if (indexToStartFrom > 0) {
             g.setColor(Color.white);
-            g.drawString(indexToStartFrom + indexToStartFrom == 1 ? "card hidden" : "cards hidden", (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
+            g.drawString(indexToStartFrom + (indexToStartFrom == 1 ? " card hidden" : " cards hidden"), (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
         }
         y = Y_BOARD_OFFSET;
         x += CARD_WIDTH + CARD_X_GAP;
@@ -118,7 +118,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             }
             if (indexToRenderFrom > 0) {
                 g.setColor(Color.white);
-                g.drawString(indexToRenderFrom + indexToStartFrom == 1 ? "card hidden" : "cards hidden", (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
+                g.drawString(indexToRenderFrom + (indexToRenderFrom == 1 ? " card hidden" : " cards hidden"), (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
             }
             y = Y_BOARD_OFFSET;
             x += CARD_WIDTH + CARD_X_GAP;

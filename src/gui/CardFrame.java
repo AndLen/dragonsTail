@@ -4,13 +4,16 @@ import game.CardGame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Andrew on 28/12/13.
  */
-public class CardFrame implements WindowListener, ActionListener {
+public class CardFrame implements ActionListener {
     private JFrame frame;
     private CardPanel panel;
     private CardGame game;
@@ -19,7 +22,7 @@ public class CardFrame implements WindowListener, ActionListener {
         game = new CardGame(this);
         frame = new JFrame("Dragon's Tail");
         frame.setLayout(new BorderLayout());
-        frame.addWindowListener(this);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         panel = new CardPanel(game);
         frame.add(panel, BorderLayout.CENTER);
         JMenuBar menuBar = new JMenuBar();
@@ -84,10 +87,10 @@ public class CardFrame implements WindowListener, ActionListener {
     private void showHelp() {
         JFrame frame = new JFrame("How to Play");
         JPanel panel = new JPanel();
-        JTextArea textArea = new JTextArea("Text",20,50);
+        JTextArea textArea = new JTextArea("Text", 20, 50);
         textArea.setEditable(false);
         panel.add(textArea);
-       // panel.setPreferredSize(new Dimension(300, 500));
+        // panel.setPreferredSize(new Dimension(300, 500));
 
         frame.add(panel);
         frame.pack();
@@ -97,41 +100,5 @@ public class CardFrame implements WindowListener, ActionListener {
     private void startGame() {
         game.dealGame(panel);
     }
-
-    @Override
-    public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
-    }
-
 
 }
