@@ -22,7 +22,6 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     protected static double CARD_HEIGHT;
     private static int NUMBER_CLICKS = 0;
     private static long LAST_PRESS = System.currentTimeMillis();
-    private static int DRAGONS_TAIL_HIDDEN_CARDS = 0;
     private static double CARD_X_GAP;
     private static double CARD_Y_NO_OVERLAP;
     private static double Y_BOARD_OFFSET;
@@ -71,6 +70,10 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         if (activeMove != null && activeX != -1 && activeY != -1) {
             if (activeMove.getMoveType() == CardMove.MOVE_TYPE.FROM_DECK) {
                 renderCard(game.getDeck().peek(), g, activeX - (CARD_WIDTH / 2), activeY);
+            } else if (activeMove.getMoveType() == CardMove.MOVE_TYPE.FROM_PILE) {
+                int index = activeMove.getBoardIndexFrom();
+                List<Card> pile = game.getTopRow().get(index);
+                renderCard(pile.get(pile.size() - 1), g, activeX - (CARD_WIDTH / 2), activeY);
             } else {
                 List<Card> beingDragged = gameBoard.get(activeMove.getBoardIndexFrom());
                 double currY = activeY;
@@ -89,44 +92,48 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         double y = Y_BOARD_OFFSET;
 
         /**Render the dragon's tail - special case due to size **/
-        double maxY = getHeight() - CARD_Y_NO_OVERLAP * 2 - CARD_HEIGHT;
         List<Card> dragonsTail = gameBoard.get(0);
-        double tailYSize = Y_BOARD_OFFSET + (dragonsTail.size() * CARD_Y_NO_OVERLAP) + (CARD_HEIGHT - CARD_Y_NO_OVERLAP);
+        int indexToStartFrom = indexToRenderFrom(dragonsTail, true);
 
-        if (tailYSize > maxY) {
-            DRAGONS_TAIL_HIDDEN_CARDS = 0;
-            while (tailYSize > maxY) {
-                tailYSize -= CARD_Y_NO_OVERLAP;
-                DRAGONS_TAIL_HIDDEN_CARDS++;
-            }
-            //Render cards we can show
-            for (int i = DRAGONS_TAIL_HIDDEN_CARDS; i < dragonsTail.size(); i++) {
-                renderCard(dragonsTail.get(i), g, x, y);
-                y += CARD_Y_NO_OVERLAP;
-            }
+        //Render cards we can show
+        for (int i = indexToStartFrom; i < dragonsTail.size(); i++) {
+            renderCard(dragonsTail.get(i), g, x, y);
+            y += CARD_Y_NO_OVERLAP;
+        }
+        if (indexToStartFrom > 0) {
             g.setColor(Color.white);
-            g.drawString(CardPanel.DRAGONS_TAIL_HIDDEN_CARDS + " cards hidden", (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
-
-        } else {
-            //Render as normal.
-            for (Card card : dragonsTail) {
-                renderCard(card, g, x, y);
-                y += CARD_Y_NO_OVERLAP;
-            }
+            g.drawString(indexToStartFrom + " cards hidden", (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
         }
         y = Y_BOARD_OFFSET;
         x += CARD_WIDTH + CARD_X_GAP;
         /** Done rendering dragon's tail**/
 
-        //Render other cards normally
+        //Render other cards
         for (int i = 1; i < gameBoard.size(); i++) {
-            for (Card card : gameBoard.get(i)) {
-                renderCard(card, g, x, y);
+            List<Card> cards = gameBoard.get(i);
+            int indexToRenderFrom = indexToRenderFrom(cards, false);
+            for (int j = indexToRenderFrom; j < cards.size(); j++) {
+                renderCard(cards.get(j), g, x, y);
                 y += CARD_Y_NO_OVERLAP;
+            }
+            if (indexToRenderFrom > 0) {
+                g.setColor(Color.white);
+                g.drawString(indexToRenderFrom + " cards hidden", (float) x, (float) y - 1);
             }
             y = Y_BOARD_OFFSET;
             x += CARD_WIDTH + CARD_X_GAP;
         }
+    }
+
+    private int indexToRenderFrom(List<Card> cards, boolean dragonsTail) {
+        double maxSize = dragonsTail ? getHeight() - CARD_Y_NO_OVERLAP * 2 - CARD_HEIGHT : getHeight();
+        double cardsYSize = Y_BOARD_OFFSET + (cards.size() * CARD_Y_NO_OVERLAP) + (CARD_HEIGHT - CARD_Y_NO_OVERLAP);
+        int indexToStartFrom = 0;
+        while (cardsYSize > maxSize) {
+            cardsYSize -= CARD_Y_NO_OVERLAP;
+            indexToStartFrom++;
+        }
+        return indexToStartFrom;
     }
 
     private void renderTopRow(Graphics2D g) {
@@ -154,7 +161,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         g.translate(x, y);
         g.scale(xScale, yScale);
 
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         ImageManager.renderSVG(card, g);
 
         //Revert changes.
@@ -202,7 +209,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             return;
         }
         System.out.println(System.currentTimeMillis() - LAST_PRESS);
-        if ((System.currentTimeMillis() - LAST_PRESS) < 200) {
+        //Was 200
+        if ((System.currentTimeMillis() - LAST_PRESS) < 400) {
             NUMBER_CLICKS++;
         } else {
             NUMBER_CLICKS = 0;
@@ -235,6 +243,9 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
         if (NUMBER_CLICKS == 1) {
             doubleClick(e);
             NUMBER_CLICKS = 0;
+        } else if (clickedOnDeck(e)) {
+            //Do nothing
+
         } else if (e.getY() < Y_BOARD_OFFSET) {
             processMoveToTopRow(e);
         } else {
@@ -303,10 +314,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
         int index = (int) ((yPressed - Y_BOARD_OFFSET) / (CARD_Y_NO_OVERLAP));
 
-        //If it's a dragon's tail, we need to compensate for the cards hidden.
-        if (isDragonsTail) {
-            index += DRAGONS_TAIL_HIDDEN_CARDS;
-        }
+        //Compensate for hidden cards
+        index += indexToRenderFrom(cards, isDragonsTail);
 
         if (index >= cards.size()) {
             index = cards.size() - 1;
@@ -364,18 +373,15 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private void processMoveToBoard(MouseEvent e) {
         int col = findCol(e.getX());
         List<Card> possibleCards = game.getBoard().get(col);
-        int index = findCardIndex(possibleCards, e.getY(), col == 0);
-        if (index != -1) {
 
-            if (possibleCards.get(index) != null) {
-                activeMove.cardReleased(col, false);
-                System.out.println("Moving:" + activeMove);
-                String result = activeMove.makeMove(game);
-                if (!result.isEmpty() && !result.equals("ONTO_SELF")) {
-                    JOptionPane.showMessageDialog(this, result);
-                }
-            }
+        activeMove.cardReleased(col, false);
+        System.out.println("Moving:" + activeMove);
+        String result = activeMove.makeMove(game);
+        if (!result.isEmpty() && !result.equals("ONTO_SELF")) {
+            JOptionPane.showMessageDialog(this, result);
         }
+
+
     }
 
     private void processMoveToTopRow(MouseEvent e) {

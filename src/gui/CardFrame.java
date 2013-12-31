@@ -4,14 +4,13 @@ import game.CardGame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Andrew on 28/12/13.
  */
-public class CardFrame implements WindowListener {
+public class CardFrame implements WindowListener, ActionListener {
     private JFrame frame;
     private CardPanel panel;
     private CardGame game;
@@ -19,10 +18,27 @@ public class CardFrame implements WindowListener {
     public CardFrame() {
         game = new CardGame(this);
         frame = new JFrame("Dragon's Tail");
+        frame.setLayout(new BorderLayout());
         frame.addWindowListener(this);
         panel = new CardPanel(game);
-        frame.add(panel);
-        frame.setLayout(new GridLayout());
+        frame.add(panel, BorderLayout.CENTER);
+        JMenuBar menuBar = new JMenuBar();
+        frame.add(menuBar, BorderLayout.PAGE_START);
+        JMenu jMenu = new JMenu("Menu");
+        menuBar.add(jMenu);
+
+        JMenuItem restartMenuItem = new JMenuItem("Restart");
+        jMenu.add(restartMenuItem);
+        restartMenuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_R, InputEvent.CTRL_MASK));
+        restartMenuItem.addActionListener(this);
+
+        JMenuItem helpMenuItem = new JMenuItem("Help");
+        jMenu.add(helpMenuItem);
+        helpMenuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_H, InputEvent.CTRL_MASK));
+        helpMenuItem.addActionListener(this);
+
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.pack();
         frame.setVisible(true);
@@ -48,12 +64,34 @@ public class CardFrame implements WindowListener {
         game = new CardGame(this);
         panel = new CardPanel(game);
 
-        frame.add(panel);
-        frame.setLayout(new GridLayout());
+        frame.add(panel, BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.pack();
         frame.setVisible(true);
         startGame();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if (command.equals("Restart")) {
+            game.restart();
+        } else if (command.equals("Help")) {
+            showHelp();
+        }
+    }
+
+    private void showHelp() {
+        JFrame frame = new JFrame("How to Play");
+        JPanel panel = new JPanel();
+        JTextArea textArea = new JTextArea("Text",20,50);
+        textArea.setEditable(false);
+        panel.add(textArea);
+       // panel.setPreferredSize(new Dimension(300, 500));
+
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void startGame() {
@@ -94,4 +132,6 @@ public class CardFrame implements WindowListener {
     public void windowDeactivated(WindowEvent e) {
 
     }
+
+
 }

@@ -119,6 +119,7 @@ public class CardGame {
     private String moveCardOntoCard(List<Card> from, int boardIndexTo, int listIndexFrom) {
         List<Card> to = board.get(boardIndexTo);
         Card toMove = from.get(listIndexFrom);
+        System.out.println("TO: " + to.toString());
         if (to.isEmpty()) {
             //Means we can move anything there.
             for (int i = listIndexFrom; i < from.size(); i++) {
