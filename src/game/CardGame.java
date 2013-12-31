@@ -118,7 +118,7 @@ public class CardGame {
 
     private String moveCardOntoCard(List<Card> from, int boardIndexTo, int listIndexFrom) {
         List<Card> to = board.get(boardIndexTo);
-        Card toMove = from.get(listIndexFrom);
+        Card firstToMove = from.get(listIndexFrom);
         System.out.println("TO: " + to.toString());
         if (to.isEmpty()) {
             //Means we can move anything there.
@@ -129,24 +129,37 @@ public class CardGame {
         }
         Card lastInRow = to.get(to.size() - 1);
 
-        if (toMove == lastInRow) {
+        if (firstToMove == lastInRow) {
             //Don't want to move onto self, nor display warning
             return "ONTO_SELF";
         }
-        if (toMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
-            if (suitMoveIsValid(toMove.getSuit(), lastInRow.getSuit())) {
-                //Valid move
-                for (int i = listIndexFrom; i < from.size(); i++) {
-                    to.add(from.get(i));
+        if (firstToMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
+            if (to.size() > 1) {
+                //Needs to match suit with one it's landing on too
+                if (firstToMove.getSuit() == lastInRow.getSuit()) {
+                    for (int i = listIndexFrom; i < from.size(); i++) {
+                        to.add(from.get(i));
+                    }
+                    return "";
+                } else {
+                    return "Can only move onto the same suit when moving multiple cards.";
                 }
-                return "";
 
             } else {
-                return "You can only move onto a card of the same suit or different colour.";
+                if (suitMoveIsValid(firstToMove.getSuit(), lastInRow.getSuit())) {
+                    //Valid move
+                    to.add(from.get(listIndexFrom));
+                    return "";
+
+                } else {
+                    return "You can only move onto a card of the same suit or different colour.";
+                }
             }
         } else {
-            return toMove.getRank().name() + " is not one lower than " + lastInRow.getRank().name();
+            return firstToMove.getRank().name() + " is not one lower than " + lastInRow.getRank().name();
         }
+
+
     }
 
     private boolean suitMoveIsValid(Card.Suit from, Card.Suit to) {

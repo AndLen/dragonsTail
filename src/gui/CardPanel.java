@@ -118,7 +118,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             }
             if (indexToRenderFrom > 0) {
                 g.setColor(Color.white);
-                g.drawString(indexToRenderFrom + (indexToRenderFrom == 1 ? " card hidden" : " cards hidden"), (float) X_BOARD_OFFSET, (float) Y_BOARD_OFFSET - 1);
+                g.drawString(indexToRenderFrom + (indexToRenderFrom == 1 ? " card hidden" : " cards hidden"), (float) x, (float) Y_BOARD_OFFSET - 1);
             }
             y = Y_BOARD_OFFSET;
             x += CARD_WIDTH + CARD_X_GAP;
