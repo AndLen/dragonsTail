@@ -1,30 +1,28 @@
 package gui;
 
 import game.CardGame;
+import game.StorageManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Andrew on 28/12/13.
  */
-public class CardFrame implements ActionListener {
+public class CardFrame implements ActionListener, WindowListener {
     private JFrame frame;
     private CardPanel panel;
     private CardGame game;
+    private Object lock = new Object();
 
     public CardFrame() {
-        game = new CardGame(this);
         frame = new JFrame("Dragon's Tail");
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        panel = new CardPanel(game);
-        frame.add(panel, BorderLayout.CENTER);
+        frame.addWindowListener(this);
+
         JMenuBar menuBar = new JMenuBar();
         frame.add(menuBar, BorderLayout.PAGE_START);
         JMenu jMenu = new JMenu("Menu");
@@ -42,46 +40,97 @@ public class CardFrame implements ActionListener {
                 KeyEvent.VK_H, InputEvent.CTRL_MASK));
         helpMenuItem.addActionListener(this);
 
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.pack();
-        frame.setVisible(true);
+        JMenuItem undoMenuItem = new JMenuItem("Undo");
+        jMenu.add(undoMenuItem);
+        undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+        undoMenuItem.addActionListener(this);
+
+        JMenuItem statMenuItem = new JMenuItem("Stats");
+        jMenu.add(statMenuItem);
+        statMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+        statMenuItem.addActionListener(this);
+
     }
 
     public static void main(String args[]) throws InvocationTargetException, InterruptedException {
-        final CardFrame[] frame = new CardFrame[1];
-        SwingUtilities.invokeAndWait(new Runnable() {  //Note 1
+        new Thread() {
             public void run() {
-                frame[0] = new CardFrame();
+                CardFrame frame = new CardFrame();
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                frame.restartGame();
             }
-        });
-
-        frame[0].startGame();
+        }.start();
+//        final CardFrame[] frame = new CardFrame[1];
+//
+//
+//        frame[0].startGame();
     }
 
     public void restartGame() {
-        panel.removeComponentListener(panel);
-        panel.removeMouseMotionListener(panel);
-        panel.removeMouseListener(panel);
-        frame.remove(panel);
+        //Make a new thread to ensure we don't run it on the EDT
 
-        game = new CardGame(this);
-        panel = new CardPanel(game);
+        new Thread() {
+            public void run() {
+                if (panel != null) {
+                    panel.removeComponentListener(panel);
+                    panel.removeMouseMotionListener(panel);
+                    panel.removeMouseListener(panel);
+                    frame.remove(panel);
+                }
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.pack();
-        frame.setVisible(true);
-        startGame();
+                game = new CardGame(CardFrame.this);
+                panel = new CardPanel(game);
+
+                frame.add(panel, BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
+                frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                //  frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                startGame();
+            }
+
+        }.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if (command.equals("Restart")) {
-            game.restart();
+            restartGame();
         } else if (command.equals("Help")) {
             showHelp();
+        } else if (command.equals("Undo")) {
+            synchronized (lock) {
+                game.undo();
+                panel.repaint();
+            }
+        } else if (command.equals("Stats")) {
+            showStats();
         }
+    }
+
+    private void showStats() {
+        JFrame frame = new JFrame("Stats");
+        JPanel panel = new JPanel();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Wins:" + StorageManager.getWins() + " ");
+        sb.append("Losses: " + StorageManager.getLosses() + " ");
+        sb.append("W/L Ratio: " + StorageManager.getRatio()*100 + " %" + "\n");
+        int bestTime = StorageManager.getBestTime();
+        sb.append("Best Time: " + (bestTime == Integer.MAX_VALUE ? "N/A" : bestTime/1000 + " s") + "\n");
+        int lowestMoves = StorageManager.getLowestMoves();
+        sb.append("Lowest # Moves: " + (lowestMoves == Integer.MAX_VALUE ? "N/A" : lowestMoves + " moves") + "\n");
+        JTextArea textArea = new JTextArea(sb.toString(), 20, 50);
+        textArea.setEditable(false);
+        panel.add(textArea);
+
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void showHelp() {
@@ -101,4 +150,38 @@ public class CardFrame implements ActionListener {
         game.dealGame(panel);
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        StorageManager.loss();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }

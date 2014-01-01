@@ -16,15 +16,33 @@ public class CardGame {
     private final Queue<Card> deck;
     private final List<List<Card>> topRow;
     private final CardFrame cardFrame;
+    private final Stack<CardMove> history;
+    private long startTime;
 
     public CardGame(CardFrame cardFrame) {
         this.cardFrame = cardFrame;
         board = new CopyOnWriteArrayList<List<Card>>();
         deck = new LinkedList<Card>();
         topRow = new CopyOnWriteArrayList<List<Card>>();
+        history = new Stack<CardMove>();
     }
 
     public void dealGame(CardPanel panel) {
+        while (!panel.isReady()) {
+            try {
+                //Wait for graphics to render once before we deal.
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //Ensures we get to see the deck being dealt
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        startTime = System.currentTimeMillis();
         for (int i = 0; i < 8; i++) {
             topRow.add(new CopyOnWriteArrayList<Card>());
 
@@ -47,7 +65,7 @@ public class CardGame {
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -58,7 +76,7 @@ public class CardGame {
                     board.get(j).add(toAdd);
                     panel.repaint();
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -134,7 +152,7 @@ public class CardGame {
             return "ONTO_SELF";
         }
         if (firstToMove.getRank().ordinal() == lastInRow.getRank().ordinal() - 1) {
-            if (listIndexFrom < from.size() -1) {
+            if (listIndexFrom < from.size() - 1) {
                 //Needs to match suit with one it's landing on too
                 if (firstToMove.getSuit() == lastInRow.getSuit()) {
                     for (int i = listIndexFrom; i < from.size(); i++) {
@@ -201,10 +219,9 @@ public class CardGame {
         return result;
     }
 
-    //Again should combine these
     public String moveCardOntoTopRowFromRow(int boardIndexFrom, int boardIndexTo) {
         List<Card> from = topRow.get(boardIndexFrom);
-        String result = moveCardOntoTopRow(from, boardIndexFrom, boardIndexTo);
+        String result = moveCardOntoTopRow(from, boardIndexTo, from.size()-1);
         if (result.isEmpty()) {
             from.remove(from.size() - 1);
         }
@@ -261,15 +278,39 @@ public class CardGame {
     }
 
     public boolean hasWon() {
-        for (List<Card> pile : topRow) {
-            if (pile.size() != 13) {
-                return false;
-            }
-        }
-        return true;
+        return history.size() == 20;
+//        for (List<Card> pile : topRow) {
+//            if (pile.size() != 13) {
+//                return false;
+//            }
+//        }
+//        return true;
     }
 
     public void restart() {
         cardFrame.restartGame();
+    }
+
+    public Stack<CardMove> getHistory() {
+        return history;
+    }
+
+    public void undo() {
+        System.out.println(history);
+        if (!history.isEmpty()) {
+            CardMove toUndo = history.pop();
+            toUndo.undo(this);
+
+        }
+
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public int getNumMoves() {
+        //Handy
+        return history.size();
     }
 }

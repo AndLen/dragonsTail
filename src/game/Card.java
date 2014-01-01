@@ -6,6 +6,8 @@ package game;
 public class Card {
     private final Suit suit;
     private final Rank rank;
+    //e.g. hiding while being dragged
+    private boolean isHidden = false;
 
     public Card(Suit suit, Rank rank) {
 
@@ -31,6 +33,14 @@ public class Card {
 
     public boolean matchesAndOneAbove(Card other) {
         return (other.getSuit() == this.suit && this.rank.ordinal() == other.getRank().ordinal() + 1);
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean isHidden) {
+        this.isHidden = isHidden;
     }
 
     public enum Suit {
