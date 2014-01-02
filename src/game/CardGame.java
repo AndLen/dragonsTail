@@ -278,13 +278,13 @@ public class CardGame {
     }
 
     public boolean hasWon() {
-        return history.size() == 20;
-//        for (List<Card> pile : topRow) {
-//            if (pile.size() != 13) {
-//                return false;
-//            }
-//        }
-//        return true;
+
+        for (List<Card> pile : topRow) {
+            if (pile.size() != 13) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void restart() {

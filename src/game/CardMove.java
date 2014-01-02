@@ -13,6 +13,7 @@ public class CardMove {
     private final MOVE_TYPE moveType;
     private int boardIndexTo = -1;
     private boolean topRow;
+    private int numCardsMoved;
 
     public CardMove(int toMoveTop, int boardIndexFrom, CardGame game) {
         this.toMoveTop = toMoveTop;
@@ -77,8 +78,13 @@ public class CardMove {
 
     private String makeBoardMove(CardGame game) {
         if (topRow) {
+
             return game.moveCardOntoTopRowFromBoard(toMoveTop, boardIndexFrom, boardIndexTo);
         } else {
+            //Need this in case we undo to see how many we moved easily (or at all?).
+            //If size = 6 and toMoveTop = 5, we moved 6-5 = 1 card
+            //If size = 6 and toMoveTop = 3, we moved 6-3 = 3 cards
+            numCardsMoved = game.getBoard().get(boardIndexFrom).size() - toMoveTop;
             return game.moveCardOntoCardFromBoard(toMoveTop, boardIndexFrom, boardIndexTo);
         }
     }
@@ -140,9 +146,8 @@ public class CardMove {
                 } else {
                     //The fun one
                     List<Card> otherCol = game.getBoard().get(boardIndexTo);
-                    int from = toMoveTop+1;
-                    while (from < otherCol.size()) {
-                        boardCol.add(otherCol.remove(from));
+                    for (int i = otherCol.size() - numCardsMoved; i < otherCol.size(); ) {
+                        boardCol.add(otherCol.remove(i));
                     }
                 }
                 break;

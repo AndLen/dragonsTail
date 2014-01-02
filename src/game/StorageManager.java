@@ -1,6 +1,7 @@
 package game;
 
 
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -27,8 +28,8 @@ public class StorageManager {
 
     public static double getRatio() {
         int losses = getLosses();
-
-        return losses == 0 ? 0 : ((double) getWins()) / ((double) losses);
+        int wins = getWins();
+        return losses == 0 ? 0 : ((double) wins) / ((double) losses + wins);
     }
 
     public static int getLosses() {
@@ -51,5 +52,13 @@ public class StorageManager {
 
     public static void loss() {
         prefs.putInt("losses", prefs.getInt("losses", 0) + 1);
+    }
+
+    public static void reset() {
+        try {
+            prefs.clear();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
     }
 }

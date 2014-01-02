@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Queue;
 
@@ -30,11 +31,13 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     private static double DECK_Y;
     private static String ERROR;
     private final CardGame game;
+    private final Object lock = new Object();
     //Moving cards
     private CardMove activeMove = null;
     private int activeX = -1;
     private int activeY = -1;
     private boolean successfulPaint = false;
+    private BufferedImage lastImage;
 
     public CardPanel(CardGame game) {
         this.game = game;
@@ -47,18 +50,22 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
     }
 
     public void paint(Graphics gOriginal) {
-        Graphics2D g = (Graphics2D) gOriginal;
+        //Double buffering and caching for dragging
+        lastImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = lastImage.createGraphics();
         g.setColor(BACKGROUND_GREEN);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         renderTopRow(g);
         final List<List<Card>> gameBoard = game.getBoard();
         renderBoard(g, gameBoard);
-        //Render cards being dragged if we can
-        renderDragCards(g, gameBoard);
+        //Lets render this in the dragged event instead to lower load
+        //renderDragCards(g, gameBoard);
         renderDeck(g);
         renderError(g);
         successfulPaint = true;
+        gOriginal.drawImage(lastImage, 0, 0, null);
+        g.dispose();
     }
 
     private void renderError(Graphics2D g) {
@@ -286,40 +293,43 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        try {
-            if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
-                //Clicked off the board, nothing to do with us.
+        //Don't want multiple threads in here really
+        synchronized (lock) {
+            try {
+                if (e.getX() < X_BOARD_OFFSET || e.getX() > (getWidth() - X_BOARD_OFFSET)) {
+                    //Clicked off the board, nothing to do with us.
+                    if (activeMove != null) activeMove.unhideCards(game);
+                    activeMove = null;
+                    return;
+                }
+
+                if (NUMBER_CLICKS == 1) {
+                    doubleClick(e);
+                    NUMBER_CLICKS = 0;
+                } else if (clickedOnDeck(e)) {
+                    //Do nothing
+
+                } else if (e.getY() < Y_BOARD_OFFSET) {
+                    processMoveToTopRow(e);
+                } else {
+                    processMoveToBoard(e);
+                }
                 if (activeMove != null) activeMove.unhideCards(game);
                 activeMove = null;
-                return;
+            } finally {
+                this.repaint();
             }
+            if (game.hasWon()) {
+                int elapsedTime = (int) (System.currentTimeMillis() - game.getStartTime());
+                StorageManager.win(elapsedTime, game.getNumMoves());
+                String[] options = new String[]{"Play Again", "Quit"};
+                int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.", "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (result == JOptionPane.YES_OPTION) {
+                    game.restart();
 
-            if (NUMBER_CLICKS == 1) {
-                doubleClick(e);
-                NUMBER_CLICKS = 0;
-            } else if (clickedOnDeck(e)) {
-                //Do nothing
-
-            } else if (e.getY() < Y_BOARD_OFFSET) {
-                processMoveToTopRow(e);
-            } else {
-                processMoveToBoard(e);
-            }
-            if (activeMove != null) activeMove.unhideCards(game);
-            activeMove = null;
-        } finally {
-            this.repaint();
-        }
-        if (game.hasWon()) {
-            int elapsedTime = (int) (System.currentTimeMillis() - game.getStartTime());
-            StorageManager.win(elapsedTime, game.getNumMoves());
-            String[] options = new String[]{"Play Again", "Quit"};
-            int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.", "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            if (result == JOptionPane.YES_OPTION) {
-                game.restart();
-
-            } else {
-                System.exit(0);
+                } else {
+                    System.exit(0);
+                }
             }
         }
     }
@@ -509,7 +519,14 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             activeX = -1;
             activeY = -1;
         }
-        repaint();
+        BufferedImage copyImage = new BufferedImage(lastImage.getWidth(),lastImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = copyImage.createGraphics();
+        g.drawImage(lastImage,0,0,null);
+        renderDragCards(g, game.getBoard());
+        Graphics panelGraphics = getGraphics();
+        panelGraphics.drawImage(copyImage,0,0,null);
+        panelGraphics.dispose();
+        g.dispose();
     }
 
     @Override
