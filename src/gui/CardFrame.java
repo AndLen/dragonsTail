@@ -84,6 +84,45 @@ public class CardFrame implements ActionListener, WindowListener {
 //        frame[0].startGame();
     }
 
+    public static void showStats() {
+        final JFrame frame = new JFrame("Stats");
+        frame.setLayout(new BorderLayout());
+
+        final JPanel textPanel = createStatText();
+        frame.add(textPanel);
+        JButton reset = new JButton("Reset");
+        reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StorageManager.reset();
+                frame.remove(textPanel);
+                frame.add(createStatText());
+                frame.pack();
+            }
+        });
+        frame.add(reset, BorderLayout.PAGE_END);
+        frame.add(textPanel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private static JPanel createStatText() {
+        JPanel panel = new JPanel();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Wins:" + StorageManager.getWins() + " ");
+        sb.append("Losses: " + StorageManager.getLosses() + " ");
+        double ratio = StorageManager.getRatio() * 100;
+        sb.append("W/L Ratio: " + new DecimalFormat("#.##").format(ratio) + " %" + "\n\n");
+        int bestTime = StorageManager.getBestTime();
+        sb.append("Best Time: " + (bestTime == Integer.MAX_VALUE ? "N/A" : bestTime / 1000 + " s") + "\n\n");
+        int lowestMoves = StorageManager.getLowestMoves();
+        sb.append("Lowest # Moves: " + (lowestMoves == Integer.MAX_VALUE ? "N/A" : lowestMoves + " moves"));
+        JTextArea textArea = new JTextArea(sb.toString(), 5, 30);
+        textArea.setEditable(false);
+        panel.add(textArea);
+        return panel;
+    }
+
     public void restartGame() {
         //Make a new thread to ensure we don't run it on the EDT
 
@@ -126,45 +165,6 @@ public class CardFrame implements ActionListener, WindowListener {
         } else if (command.equals("Stats")) {
             showStats();
         }
-    }
-
-    private void showStats() {
-        final JFrame frame = new JFrame("Stats");
-        frame.setLayout(new BorderLayout());
-
-        final JPanel textPanel = createStatText();
-        frame.add(textPanel);
-        JButton reset = new JButton("Reset");
-        reset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StorageManager.reset();
-                frame.remove(textPanel);
-                frame.add(createStatText());
-                frame.pack();
-            }
-        });
-        frame.add(reset,BorderLayout.PAGE_END);
-        frame.add(textPanel);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private JPanel createStatText() {
-        JPanel panel = new JPanel();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Wins:" + StorageManager.getWins() + " ");
-        sb.append("Losses: " + StorageManager.getLosses() + " ");
-        double ratio = StorageManager.getRatio() * 100;
-        sb.append("W/L Ratio: " + new DecimalFormat("#.##").format(ratio) + " %" + "\n\n");
-        int bestTime = StorageManager.getBestTime();
-        sb.append("Best Time: " + (bestTime == Integer.MAX_VALUE ? "N/A" : bestTime / 1000 + " s") + "\n\n");
-        int lowestMoves = StorageManager.getLowestMoves();
-        sb.append("Lowest # Moves: " + (lowestMoves == Integer.MAX_VALUE ? "N/A" : lowestMoves + " moves"));
-        JTextArea textArea = new JTextArea(sb.toString(), 5, 30);
-        textArea.setEditable(false);
-        panel.add(textArea);
-        return panel;
     }
 
     private void showHelp() {

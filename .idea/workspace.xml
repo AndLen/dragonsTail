@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5f4d3d3-a14a-40b1-982f-14cb600204ec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardFrame.java" afterPath="$PROJECT_DIR$/src/gui/CardFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardGame.java" afterPath="$PROJECT_DIR$/src/game/CardGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/CardMove.java" afterPath="$PROJECT_DIR$/src/game/CardMove.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/CardPanel.java" afterPath="$PROJECT_DIR$/src/gui/CardPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/StorageManager.java" afterPath="$PROJECT_DIR$/src/game/StorageManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -79,10 +77,10 @@
       <file leaf-file-name="CardFrame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="16" selection-start="6057" selection-end="6057" vertical-scroll-proportion="0.48865354" vertical-offset="1904" max-vertical-offset="3655">
+            <state line="149" column="5" selection-start="6613" selection-end="6613" vertical-scroll-proportion="0.074235804" vertical-offset="2278" max-vertical-offset="3655">
               <folding>
-                <element signature="e#5813#6094#0" expanded="true" />
-                <element signature="e#6083#6084#0" expanded="true" />
+                <element signature="e#5848#6598#0" expanded="true" />
+                <element signature="e#6586#6587#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,10 +89,8 @@
       <file leaf-file-name="StorageManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/StorageManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="19" selection-start="1482" selection-end="1482" vertical-scroll-proportion="0.0" vertical-offset="418" max-vertical-offset="1190">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="10" column="94" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,10 +107,8 @@
       <file leaf-file-name="CardPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="496" column="22" selection-start="17799" selection-end="17799" vertical-scroll-proportion="0.0" vertical-offset="8169" max-vertical-offset="9197">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="325" column="34" selection-start="11755" selection-end="11755" vertical-scroll-proportion="-9.115385" vertical-offset="5101" max-vertical-offset="9027">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -166,15 +160,15 @@
         <option value="$PROJECT_DIR$/src/game/Card.java" />
         <option value="$PROJECT_DIR$/src/game/CardGame.java" />
         <option value="$PROJECT_DIR$/src/game/CardMove.java" />
-        <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
         <option value="$PROJECT_DIR$/src/game/StorageManager.java" />
+        <option value="$PROJECT_DIR$/src/gui/CardPanel.java" />
         <option value="$PROJECT_DIR$/src/gui/CardFrame.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-111" />
+    <option name="y" value="17" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -204,7 +198,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -224,58 +217,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dragonsTail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,7 +236,7 @@
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="LayoutCode.rearrangeEntriesJava" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/svgSalamander.jar!/" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="false" />
@@ -376,6 +320,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -401,19 +358,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -579,11 +523,15 @@
       <created>1388556432196</created>
       <updated>1388556432196</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="- Renders nicer when dragging, but more RAM usage. &#10;- Fixed undo bug&#10;- Can reset settings&#10;- Counts as a loss when you restart.">
+      <created>1388640898668</created>
+      <updated>1388640898668</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-111" y="17" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -596,17 +544,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24868283" sideWeight="0.5005208" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32771337" sideWeight="0.49947917" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20677084" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24868283" sideWeight="0.49947917" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24868283" sideWeight="0.49947917" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32665965" sideWeight="0.49947917" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32771337" sideWeight="0.49947917" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
     </layout>
@@ -640,7 +588,8 @@
     <MESSAGE value="Fixed rule w/ moving multiple cards" />
     <MESSAGE value="bugifx" />
     <MESSAGE value="Fixed bugs, added settings and other features. See git." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs, added settings and other features. See git." />
+    <MESSAGE value="- Renders nicer when dragging, but more RAM usage. &#10;- Fixed undo bug&#10;- Can reset settings&#10;- Counts as a loss when you restart." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Renders nicer when dragging, but more RAM usage. &#10;- Fixed undo bug&#10;- Can reset settings&#10;- Counts as a loss when you restart." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -661,8 +610,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1751">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -677,9 +626,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="128" column="0" selection-start="5037" selection-end="5037" vertical-scroll-proportion="0.0" vertical-offset="2176" max-vertical-offset="7310">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -701,8 +648,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1751">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -717,9 +664,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="156" column="5" selection-start="5629" selection-end="5629" vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="7004">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -741,8 +686,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.0" vertical-offset="1258" max-vertical-offset="1751">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -757,9 +702,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="164" column="41" selection-start="5825" selection-end="5825" vertical-scroll-proportion="0.0" vertical-offset="2788" max-vertical-offset="7004">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -781,8 +724,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="0" selection-start="1844" selection-end="1844" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1649">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -797,9 +740,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="249" column="31" selection-start="8308" selection-end="8308" vertical-scroll-proportion="0.0" vertical-offset="4233" max-vertical-offset="7157">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -821,8 +762,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="24" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -844,9 +785,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="9" selection-start="5452" selection-end="5452" vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="3451">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,8 +805,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="25" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -894,9 +833,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="33" selection-start="1315" selection-end="1315" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="2346">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -904,8 +841,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="25" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="612">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -932,9 +869,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="88" column="49" selection-start="2563" selection-end="2563" vertical-scroll-proportion="0.0" vertical-offset="1374" max-vertical-offset="2346">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -993,9 +928,7 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_45/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="23" selection-start="4253" selection-end="4263" vertical-scroll-proportion="0.3580786" vertical-offset="1216" max-vertical-offset="9911">
-          <folding />
-        </state>
+        <state line="109" column="23" selection-start="4253" selection-end="4263" vertical-scroll-proportion="0.3580786" vertical-offset="1216" max-vertical-offset="9911" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/CardMove.java">
@@ -1005,30 +938,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/game/StorageManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="496" column="22" selection-start="17799" selection-end="17799" vertical-scroll-proportion="0.0" vertical-offset="8169" max-vertical-offset="9197">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="10" column="94" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/StorageManager.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/CardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="19" selection-start="1482" selection-end="1482" vertical-scroll-proportion="0.0" vertical-offset="418" max-vertical-offset="1190">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="325" column="34" selection-start="11755" selection-end="11755" vertical-scroll-proportion="-9.115385" vertical-offset="5101" max-vertical-offset="9027">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/CardFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="16" selection-start="6057" selection-end="6057" vertical-scroll-proportion="0.48865354" vertical-offset="1904" max-vertical-offset="3655">
+        <state line="149" column="5" selection-start="6613" selection-end="6613" vertical-scroll-proportion="0.074235804" vertical-offset="2278" max-vertical-offset="3655">
           <folding>
-            <element signature="e#5813#6094#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="e#5848#6598#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -8,7 +8,7 @@ import java.util.prefs.Preferences;
  * Created by Andrew on 1/01/14.
  */
 public class StorageManager {
-    public static final Preferences prefs = Preferences.userRoot().node("/settings");
+    public static final Preferences prefs = Preferences.userRoot().node("/settings/dragonsTail");
 
     public static int getBestTime() {
         return prefs.getInt("bestTime", Integer.MAX_VALUE);

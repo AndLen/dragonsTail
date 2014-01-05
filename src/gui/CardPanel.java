@@ -323,7 +323,8 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 int elapsedTime = (int) (System.currentTimeMillis() - game.getStartTime());
                 StorageManager.win(elapsedTime, game.getNumMoves());
                 String[] options = new String[]{"Play Again", "Quit"};
-                int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.", "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                CardFrame.showStats();
+                int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.\n Time: " + elapsedTime + " s\nMoves: " + game.getNumMoves(), "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == JOptionPane.YES_OPTION) {
                     game.restart();
 
