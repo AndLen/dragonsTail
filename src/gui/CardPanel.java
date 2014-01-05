@@ -1,9 +1,6 @@
 package gui;
 
-import game.Card;
-import game.CardGame;
-import game.CardMove;
-import game.StorageManager;
+import game.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -323,8 +320,7 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
                 int elapsedTime = (int) (System.currentTimeMillis() - game.getStartTime());
                 StorageManager.win(elapsedTime, game.getNumMoves());
                 String[] options = new String[]{"Play Again", "Quit"};
-                CardFrame.showStats();
-                int result = JOptionPane.showOptionDialog(this, "Congratulations! You have won.\n Time: " + elapsedTime + " s\nMoves: " + game.getNumMoves(), "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                int result = JOptionPane.showOptionDialog(CardFrame.showStats(), "Congratulations! You have won.\n Time: " + (elapsedTime / 1000) + " s\nMoves: " + game.getNumMoves(), "Win!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == JOptionPane.YES_OPTION) {
                     game.restart();
 
@@ -520,12 +516,12 @@ public class CardPanel extends JPanel implements ComponentListener, MouseListene
             activeX = -1;
             activeY = -1;
         }
-        BufferedImage copyImage = new BufferedImage(lastImage.getWidth(),lastImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
+        BufferedImage copyImage = new BufferedImage(lastImage.getWidth(), lastImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = copyImage.createGraphics();
-        g.drawImage(lastImage,0,0,null);
+        g.drawImage(lastImage, 0, 0, null);
         renderDragCards(g, game.getBoard());
         Graphics panelGraphics = getGraphics();
-        panelGraphics.drawImage(copyImage,0,0,null);
+        panelGraphics.drawImage(copyImage, 0, 0, null);
         panelGraphics.dispose();
         g.dispose();
     }

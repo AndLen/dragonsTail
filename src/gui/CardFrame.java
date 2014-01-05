@@ -84,7 +84,7 @@ public class CardFrame implements ActionListener, WindowListener {
 //        frame[0].startGame();
     }
 
-    public static void showStats() {
+    public static JFrame showStats() {
         final JFrame frame = new JFrame("Stats");
         frame.setLayout(new BorderLayout());
 
@@ -104,6 +104,7 @@ public class CardFrame implements ActionListener, WindowListener {
         frame.add(textPanel);
         frame.pack();
         frame.setVisible(true);
+        return frame;
     }
 
     private static JPanel createStatText() {
